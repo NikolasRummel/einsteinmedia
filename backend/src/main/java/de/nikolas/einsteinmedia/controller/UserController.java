@@ -10,6 +10,7 @@ import de.nikolas.einsteinmedia.commons.httpserver.http.annotation.HttpMapping;
 import de.nikolas.einsteinmedia.commons.httpserver.utils.JsonUtils;
 import de.nikolas.einsteinmedia.commons.httpserver.utils.Providers;
 import de.nikolas.einsteinmedia.models.LoginRequestModel;
+import de.nikolas.einsteinmedia.models.LoginResponse;
 import de.nikolas.einsteinmedia.models.RegisterRequestModel;
 import de.nikolas.einsteinmedia.models.User;
 import de.nikolas.einsteinmedia.repository.UserRepository;
@@ -46,7 +47,9 @@ public class UserController {
                         registerRequestModel.getLastName(),
                         registerRequestModel.getUsername(),
                         registerRequestModel.getEmail(),
-                        registerRequestModel.getPassword()
+                        registerRequestModel.getPassword(),
+                        registerRequestModel.getProfileImage(),
+                        registerRequestModel.getBannerImage()
                 );
         repository.saveUser(user);
         System.out.println("Register: Registered new User");
@@ -54,13 +57,13 @@ public class UserController {
     }
 
     @HttpMapping(path = "/user/login/", method = HttpMethod.POST)
-    public String loginUser(HttpRequest request, HttpResponse response) {
+    public LoginResponse loginUser(HttpRequest request, HttpResponse response) {
         LoginRequestModel loginRequestModel = request.getBodyAsObject(LoginRequestModel.class);
 
         User user = repository.getUser(loginRequestModel.getEmail());
-        if(user == null) {
+        if (user == null) {
             response.setStatusCode(HttpStatus.BAD_REQUEST);
-            return "This account does not exist!";
+            return null;
         }
 
         // Correct password
@@ -69,10 +72,10 @@ public class UserController {
             request.setToken(token);
             response.setStatusCode(HttpStatus.OK);
 
-            return token;
+            return new LoginResponse(user, token);
         } else {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            return "Wrong password! try again.";
+            return null;
         }
     }
 

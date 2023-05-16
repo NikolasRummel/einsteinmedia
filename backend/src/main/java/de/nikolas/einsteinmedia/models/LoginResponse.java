@@ -12,15 +12,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class LoginResponse {
 
-  private int uniqueId;
-  private String firstName;
-  private String lastName;
-  private String userName;
-  private String email;
-  private String password;
-  private String profileImage;
-  private String bannerImage;
+  private User user;
+  private String authKey;
 
 }

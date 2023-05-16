@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, Navigate} from "react-router-dom";
 import {Form, Card} from "react-bootstrap";
 import Swal from 'sweetalert2'
@@ -7,6 +7,8 @@ import withReactContent from 'sweetalert2-react-content'
 export default function Register() {
 
     const SweetAlert = withReactContent(Swal)
+    const [bannerImage, setBannerImage] = useState("https://pbs.twimg.com/profile_banners/44196397/1576183471/600x200");
+    const [profileImage, setProfileImage] = useState("https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [passwordError, setpasswordError] = useState("");
@@ -53,7 +55,9 @@ export default function Register() {
                 lastName: lastName,
                 username: userName,
                 email: email,
-                password: password
+                password: password,
+                profileImage: profileImage,
+                bannerImage: bannerImage,
             })
         };
 
@@ -114,39 +118,60 @@ export default function Register() {
                             </div>
                             <br/>
                             <div className="form-group">
-                                <label>Firstname</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="exampleInputPassword1"
-                                    placeholder="Max"
-                                    required="true"
-                                    onChange={(event) => setFirstName(event.target.value)}
-                                />
-                            </div>
-                            <br/>
-                            <div className="form-group">
-                                <label>Lastname</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="exampleInputPassword1"
-                                    placeholder="Musterman"
-                                    required="true"
-                                    onChange={(event) => setLastName(event.target.value)}
-                                />
-                            </div>
-                            <br/>
-                            <div className="form-group">
                                 <label>Username</label>
                                 <input
                                     type="text"
                                     className="form-control"
-                                    id="exampleInputPassword1"
                                     placeholder="CoolGamer123"
                                     required="true"
                                     onChange={(event) => setUserName(event.target.value)}
                                 />
+                            </div>
+                            <br/>
+                            <div className="form-group d-flex">
+                                <div className="flex-fill" style={{ marginRight: '10px' }}>
+                                    <label>Firstname</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Max"
+                                        required="true"
+                                        onChange={(event) => setFirstName(event.target.value)}
+                                    />
+                                </div>
+                                <div className="flex-fill">
+                                    <label>Lastname</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Musterman"
+                                        required="true"
+                                        onChange={(event) => setLastName(event.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <br/>
+                            <div className="form-group d-flex">
+                                <div className="flex-fill" style={{ marginRight: '10px' }}>
+                                    <label>Profile Image Link</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="https://image.png"
+                                        required="false"
+                                        onChange={(event) => setProfileImage(event.target.value)}
+                                    />
+                                </div>
+                                <div className="flex-fill ml-2">
+                                    <label>Profile Banner Link</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="https://image.png"
+                                        required="false"
+                                        onChange={(event) => setBannerImage(event.target.value)}
+                                    />
+                                </div>
                             </div>
                             <br/>
                             <div className="form-group">
@@ -154,7 +179,6 @@ export default function Register() {
                                 <input
                                     type="password"
                                     className="form-control"
-                                    id="exampleInputPassword1"
                                     placeholder="Password"
                                     required="true"
                                     onChange={(event) => setPassword(event.target.value)}
@@ -168,7 +192,7 @@ export default function Register() {
                                     Submit
                                 </button>
                             </div>
-                            {failAlert &&  showErrorModal()}
+                            {failAlert && showErrorModal()}
                             {redirect && redirectToLogin()}
                         </Form>
 

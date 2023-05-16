@@ -11,6 +11,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class RegisterRequestModel {
 
-  private String firstName, lastName, username, email, password;
+  private String firstName, lastName, username, email, password, bannerImage, profileImage;
 
 }

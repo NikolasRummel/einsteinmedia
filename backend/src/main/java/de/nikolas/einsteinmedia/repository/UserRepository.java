@@ -26,11 +26,13 @@ public class UserRepository {
                     + " userName varchar(255) NOT NULL,"
                     + " email varchar(255) NOT NULL,"
                     + " password TEXT NOT NULL,"
+                    + " profileImage TEXT NOT NULL,"
+                    + " bannerImage TEXT NOT NULL,"
                     + " PRIMARY KEY (uniqueId)"
                     + ")";
 
-    private DatabaseConnection databaseConnection;
-    private Logger logger;
+    private final DatabaseConnection databaseConnection;
+    private final Logger logger;
 
     public UserRepository() {
         this.databaseConnection =
@@ -44,7 +46,7 @@ public class UserRepository {
 
     public void saveUser(User user) {
         this.databaseConnection.update(
-                "INSERT INTO users (firstName, lastName, userName, email, password) VALUES ('"
+                "INSERT INTO users (firstName, lastName, userName, email, password, profileImage, bannerImage) VALUES ('"
                         + user.getFirstName()
                         + "', '"
                         + user.getLastName()
@@ -54,6 +56,10 @@ public class UserRepository {
                         + user.getEmail()
                         + "', '"
                         + user.getPassword()
+                        + "', '"
+                        + user.getProfileImage()
+                        + "', '"
+                        + user.getBannerImage()
                         + "');");
         this.logger.info(
                 "Successfully registered a new user (" + user.getUserName() + "/" + user.getFirstName()
@@ -87,7 +93,9 @@ public class UserRepository {
                         resultSet.getString("lastName"),
                         resultSet.getString("userName"),
                         resultSet.getString("email"),
-                        resultSet.getString("password")
+                        resultSet.getString("password"),
+                        resultSet.getString("profileImage"),
+                        resultSet.getString("bannerImage")
                 );
             }
         } catch (Exception e) {
@@ -108,7 +116,9 @@ public class UserRepository {
                         resultSet.getString("lastName"),
                         resultSet.getString("userName"),
                         resultSet.getString("email"),
-                        resultSet.getString("password")
+                        resultSet.getString("password"),
+                        resultSet.getString("profileImage"),
+                        resultSet.getString("bannerImage")
                 );
             }
         } catch (Exception e) {

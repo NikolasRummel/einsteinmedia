@@ -1,10 +1,19 @@
-import axios from "axios";
+export function storeLoginResponse(json) {
+    // Authentifizierungsschlüssel im Session Storage speichern
+    sessionStorage.setItem('authKey', json.authKey);
+    // Benutzer im Session Storage speichern
+    sessionStorage.setItem('user', JSON.stringify(json.user));
+}
 
-let instance = axios.create({
-    baseURL: 'http://localhost:8081',
-    post: {
-        Authorization: sessionStorage.getItem("token")
-    }
-});
+export function getUser() {
+    return JSON.parse(sessionStorage.getItem("user"));
+}
 
-export default instance;
+export function getAuthKey() {
+    return sessionStorage.getItem("authKey")
+}
+
+export function isLoggedIn() {
+    return getUser() && getAuthKey()
+}
+

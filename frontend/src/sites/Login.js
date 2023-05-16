@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {Card} from "react-bootstrap";
 import {Link, Navigate, useLocation} from "react-router-dom";
 import Swal from "sweetalert2";
+import * as authApi from '../api/authApi';
 
 export default function Login() {
 
-    // Die "message"-Parameter aus der URL abrufen
+    // Den "message"-Parameter aus der URL abrufen
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const message = queryParams.get('message');
@@ -74,6 +75,11 @@ export default function Login() {
                     //Wenn Anfrage erfolgreich
                     setFailAlert(false)
                     setRedirect(true)
+
+                    res.json().then(json => {
+                        authApi.storeLoginResponse(json)
+                    });
+
                 }else if (res.status === 400) {
                     //Wenn Email falsch
                     setFailAlert(true)
