@@ -8,7 +8,7 @@ import {
 
 function FooterComponent() {
     return (
-        <MDBFooter bgColor='dark' className='text-white text-center text-lg-left' style={{ bottom: '0', width: '100%' }}>
+        <MDBFooter bgColor='dark' className='text-white text-center text-lg-left' style={{ bottom: '0', width: '100%'}}>
             <MDBContainer className='p-4'>
                 <MDBRow>
                     <MDBCol lg='6' md='12' className='mb-4 mb-md-0'>

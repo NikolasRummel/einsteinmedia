@@ -8,6 +8,7 @@ import LastPosts from "./sites/LastPosts";
 import Profile from "./sites/Profile";
 import NavbarComponent from "./components/Navbar";
 import FooterComponent from "./components/Footer";
+import Chat from "./sites/Chat";
 
 
 function AppRoutes() {
@@ -17,6 +18,7 @@ function AppRoutes() {
             <Route path="/register" element={<Register/>}/>
             <Route path="/" element={<LastPosts/>}/>
             <Route path="/profile" element={<Profile/>}/>
+            <Route path="/chat" element={<Chat/>}/>
         </Routes>
     );
 }

@@ -22,6 +22,7 @@ function NavbarComponent() {
                     >
                         <Nav.Link href="/">Feed</Nav.Link>
                         <Nav.Link href="/profile">My profile</Nav.Link>
+                        <Nav.Link href="/chat">General Chat</Nav.Link>
                         <NavDropdown title="Auth" id="navbarScrollingDropdown">
                             <NavDropdown.Item href="/login">Login</NavDropdown.Item>
                             <NavDropdown.Item href="/register">Register</NavDropdown.Item>

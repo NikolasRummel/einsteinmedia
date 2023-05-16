@@ -1,7 +1,7 @@
 import React from 'react';
-import Leftsidebar from "./main/LeftSidebar";
-import Rightsidebar from "./main/RightSidebar";
-import Maincontent from "./main/Content";
+import LeftSidebar from "./main/LeftSidebar";
+import RightSidebar from "./main/RightSidebar";
+import MainContent from "./main/Content";
 
 export default function LastPosts() {
     return (
@@ -9,9 +9,9 @@ export default function LastPosts() {
             <br></br>
             <div className="container-fluid">
                 <div className="row">
-                    <Leftsidebar/>
-                    <Maincontent/>
-                    <Rightsidebar/>
+                    <LeftSidebar/>
+                    <MainContent/>
+                    <RightSidebar/>
                 </div>
             </div>
         </>
