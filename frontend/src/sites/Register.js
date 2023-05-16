@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import logo from "../assets/aes.png";
-import api from "../api/authapi";
 import {Link, Navigate} from "react-router-dom";
-import {Alert, Form, Card} from "react-bootstrap";
+import {Form, Card} from "react-bootstrap";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 export default function Register() {
 
+    const SweetAlert = withReactContent(Swal)
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [passwordError, setpasswordError] = useState("");
@@ -21,7 +22,6 @@ export default function Register() {
         let formIsValid = true;
 
         if (!email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
-            formIsValid = false;
             setemailError("Email Not Valid");
             return false;
         } else {
@@ -32,18 +32,34 @@ export default function Register() {
         return formIsValid;
     };
 
+
+    const showErrorModal = () => {
+        setFailAlert(false)
+        Swal.fire({
+            icon: 'error',
+            title: 'Oups!',
+            text: 'Email or username already taken',
+        }).then(r => console.log(r + " hiii"));
+    };
+
     const registerSubmit = (e) => {
         e.preventDefault();
         handleValidation();
 
-        fetch(
-            "http://localhost:8081/user/register", {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify({
                 firstName: firstName,
                 lastName: lastName,
                 username: userName,
                 email: email,
                 password: password
-            }).then(res => {
+            })
+        };
+
+        fetch("http://localhost:8081/user/register",  requestOptions)
+            .then(res => {
                 console.log(res)
             if (res.status === 200) {
                 //Wenn Anfrage Erfolgreich
@@ -64,31 +80,23 @@ export default function Register() {
         })
     };
 
-    function showError(message) {
-        return (
-            <div className="row mt-3">
-                <Alert variant="danger">{message}</Alert>
-            </div>
-        )
-    }
-
     function redirectToLogin() {
         return (
-            <Navigate to='./login'/>
+            <Navigate to={{ pathname: '/login/', search: '?message=success' }} />
         )
     }
 
     return (
         <div className="container vh-100 d-flex align-items-center justify-content-center">
             <div className="col-md-5">
-                <div className="">
-                    <img height="200px" src={logo} alt="Logo"/>
-                </div>
                 <br/>
                 <div className="card">
                     <div className="card-body">
-                        <h5 className="card-title">Register</h5>
+                        <div className="d-flex justify-content-center align-items-center mt-4">
+                            <h2 className="card-title">Register</h2>
+                        </div>
                         <Form id="registerForm" onSubmit={registerSubmit}>
+                            <br/>
                             <div className="form-group">
                                 <label>Email address</label>
                                 <input
@@ -96,6 +104,7 @@ export default function Register() {
                                     className="form-control"
                                     id="EmailInput"
                                     name="EmailInput"
+                                    required="true"
                                     aria-describedby="emailHelp"
                                     placeholder="Enter email"
                                     onChange={(event) => setEmail(event.target.value)}
@@ -104,6 +113,7 @@ export default function Register() {
                                     {emailError}
                                 </small>
                             </div>
+                            <br/>
                             <div className="form-group">
                                 <label>Firstname</label>
                                 <input
@@ -111,9 +121,11 @@ export default function Register() {
                                     className="form-control"
                                     id="exampleInputPassword1"
                                     placeholder="Max"
+                                    required="true"
                                     onChange={(event) => setFirstName(event.target.value)}
                                 />
                             </div>
+                            <br/>
                             <div className="form-group">
                                 <label>Lastname</label>
                                 <input
@@ -121,9 +133,11 @@ export default function Register() {
                                     className="form-control"
                                     id="exampleInputPassword1"
                                     placeholder="Musterman"
+                                    required="true"
                                     onChange={(event) => setLastName(event.target.value)}
                                 />
                             </div>
+                            <br/>
                             <div className="form-group">
                                 <label>Username</label>
                                 <input
@@ -131,9 +145,11 @@ export default function Register() {
                                     className="form-control"
                                     id="exampleInputPassword1"
                                     placeholder="CoolGamer123"
+                                    required="true"
                                     onChange={(event) => setUserName(event.target.value)}
                                 />
                             </div>
+                            <br/>
                             <div className="form-group">
                                 <label>Password</label>
                                 <input
@@ -141,16 +157,19 @@ export default function Register() {
                                     className="form-control"
                                     id="exampleInputPassword1"
                                     placeholder="Password"
+                                    required="true"
                                     onChange={(event) => setPassword(event.target.value)}
                                 />
                                 <small id="passworderror" className="text-danger form-text">
                                     {passwordError}
                                 </small>
                             </div>
-                            <button type="submit" className="btn btn-primary">
-                                Submit
-                            </button>
-                            {failAlert && showError("email or username already taken")}
+                            <div className="d-flex justify-content-center align-items-center mt-4">
+                                <button type="submit" className="btn btn-primary">
+                                    Submit
+                                </button>
+                            </div>
+                            {failAlert &&  showErrorModal()}
                             {redirect && redirectToLogin()}
                         </Form>
 

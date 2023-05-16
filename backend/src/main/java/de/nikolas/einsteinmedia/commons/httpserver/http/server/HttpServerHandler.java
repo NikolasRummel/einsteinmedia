@@ -28,6 +28,7 @@ import de.nikolas.einsteinmedia.commons.httpserver.http.HttpRequest;
 import de.nikolas.einsteinmedia.commons.httpserver.http.HttpResponse;
 import de.nikolas.einsteinmedia.commons.httpserver.log.Logger;
 import de.nikolas.einsteinmedia.commons.httpserver.utils.Providers;
+import io.netty.handler.codec.spdy.SpdyHttpHeaders;
 
 /**
  * @author Nikolas Rummel
@@ -180,7 +181,12 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
           nettyResponse.headers().set(Names.CONNECTION, Values.KEEP_ALIVE);
         }
 
+        nettyResponse.headers().set(Names.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        nettyResponse.headers().set(Names.ACCESS_CONTROL_ALLOW_METHODS, "GET,PUT,POST,DELETE");
+        nettyResponse.headers().set(Names.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization");
+
         ctx.write(nettyResponse);
+
 
         if (!keepAlive) {
           ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);

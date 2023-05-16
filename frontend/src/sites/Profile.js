@@ -45,7 +45,7 @@ function Profile() {
             </div>
             <div className="profile-content">
                 <div className="container py-5">
-                    <div className="row" style={{heig: ""}}>
+                    <div className="row">
                         <div className="col-md-8 col-sm-12">
                             <h3>Mein Profil</h3>
                             <Card>

@@ -7,7 +7,7 @@ import logo from '../assets/aes.png';
 
 function NavbarComponent() {
     return (
-        <Navbar bg="light" expand="lg" sticky="top">
+        <Navbar expand="lg" sticky="top" variant="dark" style={{backgroundColor: "#1e2124"}}>
             <Container fluid>
                 <Navbar.Brand href="#">
                     <img height="40px" src={logo} alt="Logo" />

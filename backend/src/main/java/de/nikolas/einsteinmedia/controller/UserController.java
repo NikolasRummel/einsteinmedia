@@ -29,10 +29,12 @@ public class UserController {
 
     @HttpMapping(path = "/user/register/", method = HttpMethod.POST)
     public String registerUser(HttpRequest request, HttpResponse response) {
+        System.out.println("aaa");
         RegisterRequestModel registerRequestModel = request.getBodyAsObject(
                 RegisterRequestModel.class);
 
         if (repository.userExists(registerRequestModel.getEmail())) {
+            System.out.println("Register: Email taken");
             response.setStatusCode(HttpStatus.FORBIDDEN);
             return "This email is taken!";
         }
@@ -47,6 +49,7 @@ public class UserController {
                         registerRequestModel.getPassword()
                 );
         repository.saveUser(user);
+        System.out.println("Register: Registered new User");
         return "Successfully registered";
     }
 
