@@ -151,6 +151,7 @@ html, body {
     border-radius: 50%;
     display: inline-block;
     margin: 0 10px -10px;
+    objectFit: 'cover';
 }
 
 .Message-content > .username {

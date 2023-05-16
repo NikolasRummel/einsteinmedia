@@ -69,7 +69,6 @@ function Profile() {
                 <img
                     src={bannerImage}
                     alt="Banner"
-                    className="img-fluid"
                 />
                 <div className="profile-stats">
                     <div className="profile-stat">
