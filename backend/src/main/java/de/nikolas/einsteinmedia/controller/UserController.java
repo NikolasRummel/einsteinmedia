@@ -57,7 +57,14 @@ public class UserController {
     public String loginUser(HttpRequest request, HttpResponse response) {
         LoginRequestModel loginRequestModel = request.getBodyAsObject(LoginRequestModel.class);
 
-        if (checkLoginCredentials(loginRequestModel)) {
+        User user = repository.getUser(loginRequestModel.getEmail());
+        if(user == null) {
+            response.setStatusCode(HttpStatus.BAD_REQUEST);
+            return "This account does not exist!";
+        }
+
+        // Correct password
+        if (user.getPassword().equals(loginRequestModel.getPassword())) {
             String token = authProvider.authenticateUser(loginRequestModel);
             request.setToken(token);
             response.setStatusCode(HttpStatus.OK);
@@ -65,7 +72,7 @@ public class UserController {
             return token;
         } else {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            return "Wrong username or password";
+            return "Wrong password! try again.";
         }
     }
 
@@ -81,22 +88,4 @@ public class UserController {
         return repository.getUser(email);
     }
 
-    private boolean checkLoginCredentials(LoginRequestModel requestModel) {
-        ResultSet resultSet =
-                this.repository
-                        .getDatabaseConnection()
-                        .asyncQuery(
-                                "SELECT email, password FROM users WHERE email= '" + requestModel.getEmail()
-                                        + "'");
-        try {
-            if (resultSet.next()) {
-                String password = resultSet.getString("password");
-                return Objects.equals(requestModel.getPassword(), password);
-            }
-            return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 }

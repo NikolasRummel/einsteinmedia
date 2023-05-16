@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Card} from "react-bootstrap";
-import {Link, useLocation} from "react-router-dom";
+import {Link, Navigate, useLocation} from "react-router-dom";
 import Swal from "sweetalert2";
 
 export default function Login() {
@@ -17,6 +17,7 @@ export default function Login() {
     const [emailError, setemailError] = useState("");
 
     const [failAlert, setFailAlert] = useState(false);
+    const [failAlertMessage, setFailAlertMessage] = useState("");
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
@@ -70,23 +71,43 @@ export default function Login() {
             .then(res => {
                 console.log(res)
                 if (res.status === 200) {
-                    //Wenn Anfrage Erfolgreich
-                    //Weiterleitung an Login-Page, kein Error Feld
+                    //Wenn Anfrage erfolgreich
                     setFailAlert(false)
                     setRedirect(true)
-                } else {
-                    //Anfrage nicht Erfolgreich
-                    //Keine Weiterleitung an Login-Page, Error Feld anzeigen
+                }else if (res.status === 400) {
+                    //Wenn Email falsch
                     setFailAlert(true)
                     setRedirect(false)
+                    setFailAlertMessage("This account does not exist!")
+                } else {
+                    //Wenn Passwort falsch
+                    setFailAlert(true)
+                    setRedirect(false)
+                    setFailAlertMessage("Wrong password! try again.")
                 }
             }).catch(ex => {
             //Bei geworfener Exception
             //Keine Weiterleitung an Login-Page, Error Feld anzeigen
             setFailAlert(true)
             setRedirect(false)
+            setFailAlertMessage("ERROR!")
         })
     };
+
+    const showErrorModal = () => {
+        setFailAlert(false)
+        Swal.fire({
+            icon: 'error',
+            title: 'Oups!',
+            text: failAlertMessage,
+        }).then(r => console.log(r));
+    };
+
+    function redirectToProfile() {
+        return (
+            <Navigate to={{ pathname: '/profile/', search: '?message=success' }} />
+        )
+    }
 
     return (
         <div className="container vh-100 d-flex align-items-center justify-content-center">
@@ -131,6 +152,8 @@ export default function Login() {
                                 Submit
                             </button>
                         </div>
+                        {failAlert &&  showErrorModal()}
+                        {redirect && redirectToProfile()}
                     </form>
                     <div className="d-flex justify-content-center align-items-center mt-4">
                                       <span className="fw-normal">

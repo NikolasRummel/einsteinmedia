@@ -32,14 +32,13 @@ export default function Register() {
         return formIsValid;
     };
 
-
     const showErrorModal = () => {
         setFailAlert(false)
         Swal.fire({
             icon: 'error',
             title: 'Oups!',
             text: 'Email or username already taken',
-        }).then(r => console.log(r + " hiii"));
+        }).then(r => console.log(r));
     };
 
     const registerSubmit = (e) => {
