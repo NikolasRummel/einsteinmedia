@@ -15,6 +15,8 @@ function Profile() {
     const [firstName, setFirstName] = useState('Max');
     const [lastName, setLastName] = useState('Mustermann');
     const [username, setUsername] = useState('MaxGamer123');
+    const [bannerImage, setBannerImage] = useState("https://pbs.twimg.com/profile_banners/44196397/1576183471/600x200");
+    const [profileImage, setProfileImage] = useState("https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg");
 
     const navigate = useNavigate();
 
@@ -23,7 +25,6 @@ function Profile() {
     useEffect(() => {
 
         if (!authApi.isLoggedIn()) {
-
             Swal.fire({
                 icon: 'error',
                 title: 'Not logged in',
@@ -39,11 +40,14 @@ function Profile() {
             setFirstName(user.firstName);
             setLastName(user.lastName);
             setUsername(user.userName);
+            setProfileImage(user.profileImage);
+            setBannerImage(user.bannerImage);
+
+            if (message === 'success') {
+                showSuccessToast()
+            }
         }
 
-        if (message === 'success') {
-            showSuccessToast()
-        }
     }, [message, user]);
 
     const showSuccessToast = () => {
@@ -53,7 +57,7 @@ function Profile() {
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 5000,
+            timer: 3000,
             timerProgressBar: true,
             background: "#ffffff"
         });
@@ -63,7 +67,7 @@ function Profile() {
         <div>
             <div className="profile-banner" style={{ position: 'relative' }}>
                 <img
-                    src="https://pbs.twimg.com/profile_banners/44196397/1576183471/600x200"
+                    src={bannerImage}
                     alt="Banner"
                     className="img-fluid"
                 />
@@ -83,7 +87,7 @@ function Profile() {
                 </div>
                 <div className="profile-image-large">
                     <img
-                        src="https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg"
+                        src={profileImage}
                         alt="Profilbild"
                         className="rounded-circle img-fluid"
                         style={{ width: '200px', height: '200px', objectFit: 'cover' }}

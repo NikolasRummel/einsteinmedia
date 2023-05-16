@@ -5,10 +5,12 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import * as authApi from '../api/authApi';
 import logo from '../assets/aes.png';
+import {Button} from "react-bootstrap";
 
 function NavbarComponent() {
 
     const user = authApi.getUser();
+
 
     return (
         <Navbar expand="lg" sticky="top" variant="dark" style={{backgroundColor: "#1e2124"}}>
@@ -39,7 +41,9 @@ function NavbarComponent() {
                             </span>
                         )}
                     </Nav>
-
+                    {authApi.isLoggedIn() && (
+                        <Button onClick={authApi.logOut}>Logout</Button>
+                    )}
                 </Navbar.Collapse>
             </Container>
         </Navbar>

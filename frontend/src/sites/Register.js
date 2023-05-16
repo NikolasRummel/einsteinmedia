@@ -158,7 +158,6 @@ export default function Register() {
                                         type="text"
                                         className="form-control"
                                         placeholder="https://image.png"
-                                        required="false"
                                         onChange={(event) => setProfileImage(event.target.value)}
                                     />
                                 </div>
@@ -168,7 +167,6 @@ export default function Register() {
                                         type="text"
                                         className="form-control"
                                         placeholder="https://image.png"
-                                        required="false"
                                         onChange={(event) => setBannerImage(event.target.value)}
                                     />
                                 </div>

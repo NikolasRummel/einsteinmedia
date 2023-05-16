@@ -17,3 +17,9 @@ export function isLoggedIn() {
     return getUser() && getAuthKey()
 }
 
+export function logOut() {
+    window.location.reload(false);
+    sessionStorage.removeItem('authKey');
+    sessionStorage.removeItem('user');
+}
+

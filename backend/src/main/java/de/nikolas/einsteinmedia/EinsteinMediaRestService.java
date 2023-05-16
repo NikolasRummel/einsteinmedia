@@ -3,6 +3,7 @@ package de.nikolas.einsteinmedia;
 import de.nikolas.einsteinmedia.commons.httpserver.http.server.HttpConfig;
 import de.nikolas.einsteinmedia.commons.httpserver.http.server.HttpServer;
 import de.nikolas.einsteinmedia.commons.httpserver.utils.Providers;
+import de.nikolas.einsteinmedia.livechat.WebSocketServer;
 
 /**
  * @author Nikolas Rummel
@@ -11,8 +12,23 @@ import de.nikolas.einsteinmedia.commons.httpserver.utils.Providers;
 public class EinsteinMediaRestService {
 
     public static void main(String[] args) {
+
         Providers.put(HttpConfig.class, new HttpConfig().withPort(8081));
-        HttpServer server = new HttpServer();
-        server.start();
+
+        Thread webSocketThread = new Thread(() -> {
+            try {
+                WebSocketServer webSocket = new WebSocketServer();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        Thread httpServerThread = new Thread(() -> {
+            HttpServer server = new HttpServer();
+            server.start();
+        });
+
+        webSocketThread.start();
+        httpServerThread.start();
     }
 }
