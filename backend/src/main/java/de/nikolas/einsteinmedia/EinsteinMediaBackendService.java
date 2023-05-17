@@ -9,7 +9,7 @@ import de.nikolas.einsteinmedia.livechat.WebSocketServer;
  * @author Nikolas Rummel
  * @since 08.05.23
  */
-public class EinsteinMediaRestService {
+public class EinsteinMediaBackendService {
 
     public static void main(String[] args) {
 

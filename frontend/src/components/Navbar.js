@@ -34,10 +34,13 @@ function NavbarComponent() {
                             <NavDropdown.Item href="/register">Register</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
+                    {authApi.isLoggedIn() &&(
+                        <img height="40px" src={user.profileImage} alt="Logo" className="profile-image"/>
+                    )}
                     <Nav className="ml-auto">
                         {authApi.isLoggedIn() && (
-                            <span style={{color: 'white', marginRight: '10px'}}>
-                                Logged in as <b>{user.userName}</b>
+                            <span style={{color: 'white', marginRight: '25px'}}>
+                                 <b>{user.userName}</b>
                             </span>
                         )}
                     </Nav>

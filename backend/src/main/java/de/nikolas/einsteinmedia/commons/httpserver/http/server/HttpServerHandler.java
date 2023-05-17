@@ -62,7 +62,22 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             .method()
             .name()
             .equalsIgnoreCase(HttpMethod.OPTIONS.name())) {
-          ctx.write(new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK));
+
+          FullHttpResponse optionsResponse = new DefaultFullHttpResponse(
+                  HttpVersion.HTTP_1_1,
+                  HttpResponseStatus.OK,
+                  Unpooled.EMPTY_BUFFER
+          );
+
+          optionsResponse.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/plain");
+          optionsResponse.headers().set(HttpHeaderNames.CONTENT_LENGTH, optionsResponse.content().readableBytes());
+          optionsResponse.headers().set(HttpHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+          optionsResponse.headers().set(HttpHeaderNames.ACCESS_CONTROL_ALLOW_METHODS, "GET,PUT,POST,DELETE");
+          optionsResponse.headers().set(HttpHeaderNames.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization");
+          optionsResponse.headers().set(HttpHeaderNames.ACCESS_CONTROL_MAX_AGE, "3600");
+          optionsResponse.headers().set(HttpHeaderNames.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
+
+          ctx.write(optionsResponse);
           return;
         }
 
@@ -185,6 +200,12 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
         nettyResponse.headers().set(Names.ACCESS_CONTROL_ALLOW_METHODS, "GET,PUT,POST,DELETE");
         nettyResponse.headers().set(Names.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization");
 
+        System.out.println("###############");
+        System.out.println("------ Request:");
+        System.out.println(nettyRequest);
+        System.out.println("------ Response:");
+        System.out.println(nettyResponse);
+        System.out.println("###############");
         ctx.write(nettyResponse);
 
 

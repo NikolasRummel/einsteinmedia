@@ -8,6 +8,13 @@ export default function Feed() {
             <PostCard></PostCard>
             <PostCard></PostCard>
             <PostCard></PostCard>
+            <PostCard></PostCard>
+            <PostCard></PostCard>
+            <PostCard></PostCard>
+            <PostCard></PostCard>
+            <PostCard></PostCard>
+            <PostCard></PostCard>
+            <PostCard></PostCard>
         </>
     );
 }

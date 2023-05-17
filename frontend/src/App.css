@@ -52,6 +52,18 @@ html, body {
     height: 100%;
 }
 
+
+/* Navbar */
+
+.profile-image {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+    objectFit: 'cover';
+}
+
 /* Container für das erweiterte Profil */
 .profile-container {
     height: 100%;
@@ -178,4 +190,66 @@ html, body {
 .Message-input-container {
     padding-top: 50px;
     padding-bottom: 100px;
+}
+
+.sidebar-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+
+/* Sidebar */
+.sidebar-link {
+    padding-left: 2px;
+    font-size: 20px;
+    display: grid;
+    grid-template-columns: 2rem 5rem;
+    grid-gap: 1px;
+}
+
+.sidebar-icon {
+    position: relative;
+    /* Adjust these values accordingly */
+    top: 2px;
+    left: 5px;
+}
+.sidebar-button {
+    height: 50px;
+    width: 95%;
+    border: 3px solid green;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.newpost-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(66, 66, 66, 0.8);
+    padding: 20px;
+    z-index: 1000;
+    border-radius: 10px;
+    backdrop-filter: blur(5px); /* Blurring effect */
+    width: 100%;
+    height: 100%;
+}
+
+.newpost {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    z-index: 1000;
+    border-radius: 10px;
+    backdrop-filter: blur(50px);
+    width: 50%;
+    height:auto
+}
+
+.sticky-sidebar {
+    position: sticky;
+    top: 75px;
+    height: 80%;
 }

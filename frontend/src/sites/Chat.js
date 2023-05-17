@@ -95,6 +95,12 @@ const ChatPage = () => {
         }
     };
 
+    const handleEnterDown = (event) => {
+        if (event.key === 'Enter') {
+            handleSendMessage()
+        }
+    }
+
 
     return (
         <Container fluid className="col-md-10 vh-100 d-flex flex-column">
@@ -121,6 +127,7 @@ const ChatPage = () => {
                             placeholder="Neue Nachricht"
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
+                            onKeyDown={handleEnterDown}
                         />
                     </Col>
                     <Col xs={2} className="d-flex align-items-center justify-content-end">

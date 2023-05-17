@@ -32,8 +32,8 @@ public class WebSocketServer {
 
         JavaxWebSocketServletContainerInitializer.configure(context, (servletContext, wsContainer) -> {
             this.logger.info("add endpoint");
-            wsContainer.setAsyncSendTimeout(5*60*1000);
-            wsContainer.setDefaultMaxSessionIdleTimeout(5*60*1000);
+            wsContainer.setAsyncSendTimeout(-1);
+            wsContainer.setDefaultMaxSessionIdleTimeout(-1);
             wsContainer.setDefaultMaxTextMessageBufferSize(65535);
             wsContainer.addEndpoint(WebSocketEndpoint.class);
         });
