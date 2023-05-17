@@ -10,17 +10,19 @@ export default function LastPosts() {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-3 sticky-sidebar">
-                        <LeftSidebar />
+                        <LeftSidebar/>
                     </div>
-                    <div className="col-md-6">
-                        <Feed />
+
+                    <div className="col-md-6 ">
+                        <Feed/>
                     </div>
+
                     <div className="col-md-3 sticky-sidebar">
-                        <RightSidebar />
+                        <RightSidebar/>
                     </div>
+
                 </div>
             </div>
-
         </>
     );
 }

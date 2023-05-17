@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Button} from "react-bootstrap";
-import {FaAccusoft, FaClock, FaDiscord, FaInstagram, FaThumbsUp, FaTiktok, FaYoutube} from "react-icons/fa";
+import {
+    FaBook,
+    FaGamepad,
+    FaRocket,
+} from "react-icons/fa";
 import {NewPost} from "../../components/NewPost";
 import Popup from "reactjs-popup";
 import * as authApi from "../../api/authApi";
@@ -37,26 +41,37 @@ export default function Leftsidebar() {
 
     return (
         <>
-
             <div className="card">
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
-                        <div className="h5">Heading 1</div>
-                        <div className="h5 text-muted sidebar-link">
-                            <FaAccusoft size={"20px"} className="sidebar-icon"/> Test
+                        <div className="text-center">
+                            <div className="h3">What is EinsteinMedia?</div>
+                        </div>
+                        <div className="h7 text-muted">
+                            EinsteinMedia is a social media platform created as a computer science class project.
+                            <br/>
+                            <br/>
+                            It provides a space for users to connect and share their thoughts and photos with others who
+                            have similar interests.
                         </div>
                     </li>
                     <li className="list-group-item">
-                        <div className="h5">Heading 2</div>
-                        <div className="h5 text-muted sidebar-link">
-                            <FaDiscord size={"20px"} className="sidebar-icon"/> Hi
-                        </div>
-                        <div className="h5 text-muted sidebar-link">
-                            <FaClock size={"20px"} className="sidebar-icon"/> Hi
-                        </div>
-                        <div className="h5 text-muted sidebar-link">
-                            <FaYoutube size={"20px"} className="sidebar-icon"/> Hi
-                        </div>
+                        <div className="h4">Posting categories</div>
+                        <a href={"/"}>
+                            <div className="h5 text-muted sidebar-link">
+                                <FaBook size={"20px"} className="sidebar-icon sidebar-active"/> General
+                            </div>
+                        </a>
+                        <a href={"/"}>
+                            <div className="h5 text-muted sidebar-link">
+                                <FaRocket size={"20px"} className="sidebar-icon"/> Science
+                            </div>
+                        </a>
+                        <a href={"/"}>
+                            <div className="h5 text-muted sidebar-link">
+                                <FaGamepad size={"20px"} className="sidebar-icon"/> Other
+                            </div>
+                        </a>
                     </li>
                     <Button className="sidebar-button" onClick={showCreatePostPopup}>Create a new post</Button>
 

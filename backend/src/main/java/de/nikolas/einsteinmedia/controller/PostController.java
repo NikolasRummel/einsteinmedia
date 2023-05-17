@@ -13,6 +13,7 @@ import de.nikolas.einsteinmedia.repository.PostsRepository;
 import de.nikolas.einsteinmedia.repository.UserRepository;
 
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -22,7 +23,7 @@ import java.util.Objects;
 @HttpController
 public class PostController {
 
-    private final PostsRepository repository = Providers.get(PostsRepository.class);
+    private final PostsRepository postsRepository = Providers.get(PostsRepository.class);
     private final UserRepository userRepository = Providers.get(UserRepository.class);
     private final AuthProvider authProvider = Providers.get(AuthProvider.class);
 
@@ -38,10 +39,15 @@ public class PostController {
         PostRequestModel requestModel = request.getBodyAsObject(PostRequestModel.class);
         int authorId = userRepository.getUser(email).getUniqueId();
 
-        repository.createPost(new Post(
-                -1, authorId, System.currentTimeMillis(),
+        postsRepository.createPost(new Post(
+                -1, authorId, String.valueOf(System.currentTimeMillis()),
                 requestModel.getHeadline(), requestModel.getImageLink(), requestModel.getText(), 0
         ));
         return "Successfully created a new post";
+    }
+
+    @HttpMapping(path = "/posts/", method = HttpMethod.GET)
+    public List<PostResponse> getAllPosts(HttpRequest request, HttpResponse response) {
+        return postsRepository.getAllPostsResponses();
     }
 }
