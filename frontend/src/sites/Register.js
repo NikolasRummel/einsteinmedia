@@ -96,7 +96,7 @@ export default function Register() {
                 <div className="card">
                     <div className="card-body">
                         <div className="d-flex justify-content-center align-items-center mt-4">
-                            <h2 className="card-title">Register</h2>
+                            <h2 className="card-title fw-bold">Register</h2>
                         </div>
                         <Form id="registerForm" onSubmit={registerSubmit}>
                             <br/>

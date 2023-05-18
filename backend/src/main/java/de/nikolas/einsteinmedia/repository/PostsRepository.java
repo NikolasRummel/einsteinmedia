@@ -109,4 +109,46 @@ public class PostsRepository {
     }
 
 
+    public ArrayList<PostResponse> getAllPostsResponses(String email) {
+        ArrayList<PostResponse> posts = new ArrayList<>();
+
+        ResultSet resultSet = this.databaseConnection.asyncQuery(
+                "SELECT p.*, u.* " +
+                        "FROM posts p " +
+                        "INNER JOIN users u ON p.authorId = u.uniqueId " +
+                        "WHERE u.email = '" + email + "'");
+
+
+        try {
+            while (resultSet.next()) {
+                int postId = resultSet.getInt("uniqueId");
+                int authorId = resultSet.getInt("authorId");
+                String timestamp = resultSet.getString("timestamp");
+                String headline = resultSet.getString("headline");
+                String imageLink = resultSet.getString("imageLink");
+                String text = resultSet.getString("text");
+                int likes = resultSet.getInt("likes");
+                int userId = resultSet.getInt("u.uniqueId");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                String userName = resultSet.getString("userName");
+                String profileImage = resultSet.getString("profileImage");
+                String bannerImage = resultSet.getString("bannerImage");
+
+                Date date = new Date(Long.parseLong(timestamp));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String formattedDate = sdf.format(date);
+
+                User user = new User(userId, firstName, lastName, userName, email, null, profileImage, bannerImage);
+                Post post = new Post(postId, authorId, formattedDate, headline, imageLink, text, likes);
+                posts.add(new PostResponse(post, user));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return posts;
+    }
+
 }

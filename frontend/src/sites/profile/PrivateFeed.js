@@ -1,13 +1,21 @@
 import React, {useEffect, useState} from "react";
 import PostCard from "../../components/PostCard";
 import {Card} from "react-bootstrap";
-import Register from "../Register";
+import * as authApi from "../../api/authApi";
 
-const Feed = () => {
+const PrivateFeed = () => {
     const [posts, setPosts] = useState([]);
 
+
     useEffect(() => {
-        fetch("http://localhost:8081/posts")
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Authorization': authApi.getAuthKey(),
+            },
+        };
+
+        fetch("http://localhost:8081/posts/self", requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 setPosts(data);
@@ -21,12 +29,13 @@ const Feed = () => {
                 <Card className="text-center">
                     <Card.Body>
                         <Card.Title>
-                            Hey, there are no posts yet!
+                            Hey, you don't have any posts yet!
                         </Card.Title>
                         <Card.Text>
-                            Register or login to create the first post :)
+                            Start sharing your thoughts, experiences, and interests with others by creating your first post!
                         </Card.Text>
                     </Card.Body>
+
                 </Card>
             ) : (
                 posts.map((item, index) => (
@@ -43,8 +52,9 @@ const Feed = () => {
                     </div>
                 ))
             )}
+
         </>
     );
 }
 
-export default Feed;
+export default PrivateFeed;

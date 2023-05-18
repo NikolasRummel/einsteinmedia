@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import { Form, Button, Card } from 'react-bootstrap';
+import {Form, Button, Card} from 'react-bootstrap';
 import PostCardComponent from "../components/PostCard";
-import {useLocation,useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
 import * as authApi from "../api/authApi";
+import PrivateFeed from "./profile/PrivateFeed";
 
 function Profile() {
     // Den "message"-Parameter aus der URL abrufen
@@ -64,8 +65,8 @@ function Profile() {
     };
 
     return (
-        <div>
-            <div className="profile-banner" style={{ position: 'relative' }}>
+        <div className={!authApi.isLoggedIn() ? "blur-background" : ""}>
+            <div className="profile-banner" style={{position: 'relative'}}>
                 <img
                     src={bannerImage}
                     alt="Banner"
@@ -89,7 +90,7 @@ function Profile() {
                         src={profileImage}
                         alt="Profilbild"
                         className="rounded-circle img-fluid"
-                        style={{ width: '200px', height: '200px', objectFit: 'cover' }}
+                        style={{width: '200px', height: '200px', objectFit: 'cover'}}
                     />
                 </div>
             </div>
@@ -119,13 +120,16 @@ function Profile() {
                             </Card>
                         </div>
                         <div className="col-md-4 col-sm-12">
-                            <h3>Letzter Post</h3>
-                            <PostCardComponent/>
+                            <h3>Last posts</h3>
+                            <div style={{ height: '400px', overflow: 'auto' }}>
+                                <PrivateFeed></PrivateFeed>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     );
 }
 

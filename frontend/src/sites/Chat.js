@@ -100,44 +100,44 @@ const ChatPage = () => {
             handleSendMessage()
         }
     }
-
-
     return (
-        <Container fluid className="col-md-10 vh-100 d-flex flex-column">
-            <div className="flex-grow-1 overflow-auto">
-                {messages.map((message, index) => (
-                    <div key={index}>
-                        <br/>
-                        <br/>
-                        <ChatMessage
-                            text={message.text}
-                            author={message.author}
-                            profileImage={message.profileImage}
-                            isOwn={message.isOwn}
-                        />
-                    </div>
-                ))}
-            </div>
+        <div className={!authApi.isLoggedIn() ? "blur-background" : ""}>
+            <Container fluid className="col-md-10 vh-100 d-flex flex-column">
+                <div className="flex-grow-1 overflow-auto">
+                    {messages.map((message, index) => (
+                        <div key={index}>
+                            <br/>
+                            <br/>
+                            <ChatMessage
+                                text={message.text}
+                                author={message.author}
+                                profileImage={message.profileImage}
+                                isOwn={message.isOwn}
+                            />
+                        </div>
+                    ))}
+                </div>
 
-            <div className="Message-input-container">
-                <Row className="mt-auto">
-                    <Col xs={10}>
-                        <Form.Control
-                            type="text"
-                            placeholder="Neue Nachricht"
-                            value={newMessage}
-                            onChange={(e) => setNewMessage(e.target.value)}
-                            onKeyDown={handleEnterDown}
-                        />
-                    </Col>
-                    <Col xs={2} className="d-flex align-items-center justify-content-end">
-                        <Button variant="primary" onClick={handleSendMessage}>
-                            Senden
-                        </Button>
-                    </Col>
-                </Row>
-            </div>
-        </Container>
+                <div className="Message-input-container">
+                    <Row className="mt-auto">
+                        <Col xs={10}>
+                            <Form.Control
+                                type="text"
+                                placeholder="Neue Nachricht"
+                                value={newMessage}
+                                onChange={(e) => setNewMessage(e.target.value)}
+                                onKeyDown={handleEnterDown}
+                            />
+                        </Col>
+                        <Col xs={2} className="d-flex align-items-center justify-content-end">
+                            <Button variant="primary" onClick={handleSendMessage}>
+                                Senden
+                            </Button>
+                        </Col>
+                    </Row>
+                </div>
+            </Container>
+        </div>
     );
 };
 

@@ -37,6 +37,8 @@ export default function Leftsidebar() {
 
     const closeCreatePostPopup = () => {
         setIsPopupOpen(false);
+
+        window.location.reload(false);
     };
 
     return (

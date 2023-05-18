@@ -30,7 +30,6 @@ public class PostController {
     @HttpMapping(path = "/posts/", method = HttpMethod.POST)
     public String createNewPost(HttpRequest request, HttpResponse response) {
         if (!authProvider.checkToken(request.getToken())) {
-            System.out.println(request.getToken() + "! ! !");
             response.setStatusCode(HttpStatus.FORBIDDEN);
             return null;
         }
@@ -49,5 +48,16 @@ public class PostController {
     @HttpMapping(path = "/posts/", method = HttpMethod.GET)
     public List<PostResponse> getAllPosts(HttpRequest request, HttpResponse response) {
         return postsRepository.getAllPostsResponses();
+    }
+
+    @HttpMapping(path = "/posts/self", method = HttpMethod.GET)
+    public List<PostResponse> getPostsOfUser(HttpRequest request, HttpResponse response) {
+        if (!authProvider.checkToken(request.getToken())) {
+            response.setStatusCode(HttpStatus.FORBIDDEN);
+            return null;
+        }
+
+        String email = authProvider.getEmailByKey(request.getToken());
+        return postsRepository.getAllPostsResponses(email);
     }
 }
