@@ -15,7 +15,7 @@ function FooterComponent() {
                         <h5 className='text-uppercase'>EinsteinMedia</h5>
 
                         <p>
-                            EinsteinMedia ist natürlich die beste Social-Media-Plattform :)
+                            EinsteinMedia is a social media platform providing space for users to connect and share their thoughts and photos with others who have similar interests.
                         </p>
                     </MDBCol>
 
@@ -25,7 +25,7 @@ function FooterComponent() {
                         <ul className='list-unstyled mb-0'>
                             <li>
                                 <a href='#!' className='text-white'>
-                                    Impressum
+                                    Impress
                                 </a>
                             </li>
                         </ul>
@@ -37,7 +37,7 @@ function FooterComponent() {
                         <ul className='list-unstyled'>
                             <li>
                                 <a href='#!' className='text-white'>
-                                    Datenschutz
+                                    Privacy
                                 </a>
                             </li>
                         </ul>
