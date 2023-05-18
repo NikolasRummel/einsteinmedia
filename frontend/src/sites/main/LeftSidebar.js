@@ -47,7 +47,7 @@ export default function Leftsidebar() {
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
                         <div className="text-center">
-                            <div className="h3">What is EinsteinMedia?</div>
+                            <div className="h3 fw-bold">What is EinsteinMedia?</div>
                         </div>
                         <div className="h7 text-muted">
                             EinsteinMedia is a social media platform created as a computer science class project.

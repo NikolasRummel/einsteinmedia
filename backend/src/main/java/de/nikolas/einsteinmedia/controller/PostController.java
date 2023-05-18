@@ -12,7 +12,10 @@ import de.nikolas.einsteinmedia.models.*;
 import de.nikolas.einsteinmedia.repository.PostsRepository;
 import de.nikolas.einsteinmedia.repository.UserRepository;
 
+import java.sql.Array;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,7 +50,9 @@ public class PostController {
 
     @HttpMapping(path = "/posts/", method = HttpMethod.GET)
     public List<PostResponse> getAllPosts(HttpRequest request, HttpResponse response) {
-        return postsRepository.getAllPostsResponses();
+        ArrayList<PostResponse> postResponses = postsRepository.getAllPostsResponses();
+        Collections.reverse(postResponses);
+        return postResponses;
     }
 
     @HttpMapping(path = "/posts/self", method = HttpMethod.GET)
@@ -58,6 +63,8 @@ public class PostController {
         }
 
         String email = authProvider.getEmailByKey(request.getToken());
-        return postsRepository.getAllPostsResponses(email);
+        ArrayList<PostResponse> postResponses = postsRepository.getAllPostsResponses(email);
+        Collections.reverse(postResponses);
+        return postResponses;
     }
 }
