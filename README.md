@@ -37,3 +37,7 @@ EinsteinMedia is a social media platform created as a computer science class pro
 3. Start the frontend development server by running the command `npm start`.
 
 Note: Make sure the backend server is running and properly configured before starting the frontend development server.
+
+# Preview
+
+![GIF](https://cdn.discordapp.com/attachments/786618658829893642/1108569724020863126/ezgif-3-1d3c913890.gif)
