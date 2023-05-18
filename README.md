@@ -28,7 +28,7 @@ EinsteinMedia is a social media platform created as a computer science class pro
 2. Make sure you have Java Development Kit (JDK) installed on your system.
 3. Open the backend project in your preferred Java IDE (such as IntelliJ IDEA or Eclipse).
 4. Resolve any dependencies by installing the required libraries or frameworks specified in the project's build configuration file (such as Maven or Gradle).
-5. Configure the database connection in `UserRepository.java`
+5. Configure the database connection in [`UserRepository.java`](https://github.com/NikolasRummel/einsteinmedia/blob/main/backend/src/main/java/de/nikolas/einsteinmedia/repository/UserRepository.java)
 7. Run the backend server.
 
 ### Steps for frontend installation:
