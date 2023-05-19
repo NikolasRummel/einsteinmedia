@@ -20,11 +20,9 @@ function Profile() {
     const [profileImage, setProfileImage] = useState("https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg");
 
     const navigate = useNavigate();
-
     const user = authApi.getUser();
 
     useEffect(() => {
-
         if (!authApi.isLoggedIn()) {
             Swal.fire({
                 icon: 'error',
@@ -37,6 +35,9 @@ function Profile() {
                 }
             });
         } else { //If logged in
+
+            console.log(user)
+
             setEmail(user.email);
             setFirstName(user.firstName);
             setLastName(user.lastName);
@@ -49,7 +50,7 @@ function Profile() {
             }
         }
 
-    }, [message, user]);
+    }, []);
 
     const showSuccessToast = () => {
         Swal.fire({
@@ -121,7 +122,7 @@ function Profile() {
                         </div>
                         <div className="col-md-4 col-sm-12">
                             <h3>Last posts</h3>
-                            <div style={{ height: '400px', overflow: 'auto' }}>
+                            <div style={{height: '400px', overflow: 'auto'}}>
                                 <PrivateFeed></PrivateFeed>
                             </div>
                         </div>

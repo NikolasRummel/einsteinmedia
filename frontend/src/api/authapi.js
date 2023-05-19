@@ -14,7 +14,7 @@ export function getAuthKey() {
 }
 
 export function isLoggedIn() {
-    return getUser() && getAuthKey()
+    return getUser() != null && getAuthKey() != null
 }
 
 export function logOut() {
@@ -23,3 +23,23 @@ export function logOut() {
     sessionStorage.removeItem('user');
 }
 
+export async function fetchUser() {
+    if(!isLoggedIn()) return null;
+    try {
+        const response = await fetch('http://localhost:8081/user', {
+            headers: {
+                'Authorization':  getAuthKey(),
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Error fetching user');
+        }
+
+        const user = await response.json();
+        return user;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
