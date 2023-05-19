@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import PostCard from "../../components/PostCard";
 import {Card} from "react-bootstrap";
-import Register from "../Register";
 
 const Feed = () => {
     const [posts, setPosts] = useState([]);
@@ -39,6 +38,8 @@ const Feed = () => {
                             timestamp={item.post.timestamp}
                             headline={item.post.headline}
                             text={item.post.text}
+                            postUniqueId={item.post.uniqueId}
+                            userUniqueId={item.author.uniqueId}
                         />
                     </div>
                 ))

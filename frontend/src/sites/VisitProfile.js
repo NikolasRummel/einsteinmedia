@@ -1,15 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Button, Card} from 'react-bootstrap';
 import {useLocation, useNavigate} from "react-router-dom";
-import Swal from "sweetalert2";
 import * as authApi from "../api/authApi";
-import PrivateFeed from "./profile/PrivateFeed";
+import Feed from "./main/Feed";
 
-function Profile() {
+function VisitProfile() {
     // Den "message"-Parameter aus der URL abrufen
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const message = queryParams.get('message');
     const userId = queryParams.get('userId');
 
     const [email, setEmail] = useState('max@mustermann.de');
@@ -20,52 +18,25 @@ function Profile() {
     const [profileImage, setProfileImage] = useState("https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg");
 
     const navigate = useNavigate();
-    const user = authApi.getUser();
+
+    async function fetchUserData() {
+        return await authApi.fetchUserById(userId).then(value => {
+            setEmail(value.email);
+            setFirstName(value.firstName);
+            setLastName(value.lastName);
+            setUsername(value.userName);
+            setProfileImage(value.profileImage);
+            setBannerImage(value.bannerImage);
+        });
+    }
 
     useEffect(() => {
-        if (!authApi.isLoggedIn()) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Not logged in',
-                text: 'You need to be logged in to access this page.',
-                showConfirmButton: true,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    navigate('/login');
-                }
-            });
-        } else { //If logged in
+        fetchUserData().then(r => console.log(r));
 
-            console.log(user)
-
-            setEmail(user.email);
-            setFirstName(user.firstName);
-            setLastName(user.lastName);
-            setUsername(user.userName);
-            setProfileImage(user.profileImage);
-            setBannerImage(user.bannerImage);
-
-            if (message === 'success') {
-                showSuccessToast()
-            }
-        }
     }, []);
 
-    const showSuccessToast = () => {
-        Swal.fire({
-            icon: 'success',
-            title: `Logged in as ${authApi.getUser().email}`,
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            background: "#ffffff"
-        });
-    };
-
     return (
-        <div className={!authApi.isLoggedIn() ? "blur-background" : ""}>
+        <div>
             <div className="profile-banner" style={{position: 'relative'}}>
                 <img
                     src={bannerImage}
@@ -94,15 +65,15 @@ function Profile() {
                     />
                 </div>
             </div>
+            <div className="profile-banner">
+                <Button className="follow-button">Follow</Button>
+            </div>
             <div className="profile-content">
                 <div className="container py-5">
                     <div className="row">
                         <div className="col-md-8 col-sm-12">
-                            <h3>My Profile</h3>
+                            <h3>Profile of {username}</h3>
                             <Card>
-                                <Card.Header>
-                                    <Card.Title>Your profile data</Card.Title>
-                                </Card.Header>
                                 <Card.Body>
                                     <Card.Text>
                                         <strong>Email adress:</strong> {email}
@@ -122,7 +93,7 @@ function Profile() {
                         <div className="col-md-4 col-sm-12">
                             <h3>Last posts</h3>
                             <div style={{height: '400px', overflow: 'auto'}}>
-                                <PrivateFeed></PrivateFeed>
+                                <Feed></Feed>
                             </div>
                         </div>
                     </div>
@@ -133,4 +104,4 @@ function Profile() {
     );
 }
 
-export default Profile;
+export default VisitProfile;

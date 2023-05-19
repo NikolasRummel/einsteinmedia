@@ -12,12 +12,10 @@ import de.nikolas.einsteinmedia.models.*;
 import de.nikolas.einsteinmedia.repository.PostsRepository;
 import de.nikolas.einsteinmedia.repository.UserRepository;
 
-import java.sql.Array;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author Nikolas Rummel
@@ -46,6 +44,33 @@ public class PostController {
                 requestModel.getHeadline(), requestModel.getImageLink(), requestModel.getText(), 0
         ));
         return "Successfully created a new post";
+    }
+
+
+    @HttpMapping(path = "/posts/delete/{uniqueId}", method = HttpMethod.POST)
+    public String deletePost(HttpRequest request, HttpResponse response) {
+        if (!authProvider.checkToken(request.getToken())) {
+            response.setStatusCode(HttpStatus.FORBIDDEN);
+            return null;
+        }
+        int uniqueId = Integer.parseInt(request.getPathParameter("uniqueId"));
+
+        String email = authProvider.getEmailByKey(request.getToken());
+
+        Optional<PostResponse> optional = postsRepository.getAllPostsResponses(email)
+                .stream()
+                .filter(postResponse -> postResponse.getPost().getUniqueId() == uniqueId)
+                .findAny();
+
+        System.out.println(optional.isPresent() + "++++++++++++++++");
+        if (optional.isPresent()) {
+            response.setStatusCode(HttpStatus.OK);
+            postsRepository.deletePost(uniqueId);
+            return "Successfully deleted post";
+        }
+
+        response.setStatusCode(HttpStatus.FORBIDDEN);
+        return "You are not allowed to delete this post";
     }
 
     @HttpMapping(path = "/posts/", method = HttpMethod.GET)

@@ -24,11 +24,11 @@ export function logOut() {
 }
 
 export async function fetchUser() {
-    if(!isLoggedIn()) return null;
+    if (!isLoggedIn()) return null;
     try {
         const response = await fetch('http://localhost:8081/user', {
             headers: {
-                'Authorization':  getAuthKey(),
+                'Authorization': getAuthKey(),
             },
         });
 
@@ -38,6 +38,20 @@ export async function fetchUser() {
 
         const user = await response.json();
         return user;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+export async function fetchUserById(id) {
+    try {
+        const response = await fetch('http://localhost:8081/user/fetch/' + id, {});
+        if (!response.ok) {
+            throw new Error('Error retrieving user');
+        }
+        const json = await response.json();
+        return json;
     } catch (error) {
         console.error('Error:', error);
         throw error;

@@ -47,7 +47,6 @@ public class PostsRepository {
     }
 
     public void createPost(Post post) {
-        System.out.println("---------__---_!!!!!!!!!!");
         this.databaseConnection.update(
                 "INSERT INTO posts (authorId, timestamp, headline, imageLink, text, likes) VALUES ('"
                         + post.getAuthorId()
@@ -64,6 +63,14 @@ public class PostsRepository {
                         + "');");
         this.logger.info(
                 "Successfully created a new post (" + post.getAuthorId() + " / " + post.getHeadline() + ")");
+    }
+
+    public void deletePost(int postId) {
+        String deleteQuery = "DELETE FROM posts WHERE uniqueId = %d";
+        String formattedQuery = String.format(deleteQuery, postId);
+        this.databaseConnection.update(formattedQuery);
+
+        this.logger.info("Successfully removed post (postId: " + postId + ")");
     }
 
     public ArrayList<PostResponse> getAllPostsResponses() {

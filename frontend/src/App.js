@@ -9,6 +9,7 @@ import Profile from "./sites/Profile";
 import NavbarComponent from "./components/Navbar";
 import FooterComponent from "./components/Footer";
 import Chat from "./sites/Chat";
+import VisitProfile from "./sites/VisitProfile";
 
 
 function AppRoutes() {
@@ -18,6 +19,7 @@ function AppRoutes() {
             <Route path="/register" element={<Register/>}/>
             <Route path="/" element={<LastPosts/>}/>
             <Route path="/profile" element={<Profile/>}/>
+            <Route path="/profile/visit" element={<VisitProfile/>}/>
             <Route path="/chat" element={<Chat/>}/>
         </Routes>
     );

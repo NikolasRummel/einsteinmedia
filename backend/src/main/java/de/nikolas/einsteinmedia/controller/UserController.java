@@ -80,7 +80,7 @@ public class UserController {
     }
 
     @HttpMapping(path = "/user/", method = HttpMethod.GET)
-    public User getUser(HttpRequest request, HttpResponse response) {
+    public User getUserByKey(HttpRequest request, HttpResponse response) {
         if (!authProvider.checkToken(request.getToken())) {
             System.out.println(request.getToken() + "! ! !");
             response.setStatusCode(HttpStatus.FORBIDDEN);
@@ -89,6 +89,13 @@ public class UserController {
 
         String email = authProvider.getEmailByKey(request.getToken());
         return repository.getUser(email);
+    }
+
+    @HttpMapping(path = "/user/fetch/{uniqueId}", method = HttpMethod.GET)
+    public User getUserById(HttpRequest request, HttpResponse response) {
+        int userId = Integer.parseInt(request.getPathParameter("uniqueId"));
+
+        return repository.getUser(userId);
     }
 
 }

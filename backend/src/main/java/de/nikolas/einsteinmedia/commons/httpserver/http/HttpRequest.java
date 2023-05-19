@@ -49,6 +49,17 @@ public class HttpRequest implements Serializable {
     }
   }
 
+  public String getPathParameter(String parameterName) {
+    if (parameters.containsKey(parameterName)) {
+      List<String> parameterValues = parameters.get(parameterName);
+      if (!parameterValues.isEmpty()) {
+        return parameterValues.get(0);
+      }
+    }
+    return null;
+  }
+
+
   public <T> T getBodyAsObject(Class clazz) {
     return (T) JsonUtils.toBean(body, clazz);
   }

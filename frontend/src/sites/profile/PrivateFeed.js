@@ -48,6 +48,8 @@ const PrivateFeed = () => {
                             timestamp={item.post.timestamp}
                             headline={item.post.headline}
                             text={item.post.text}
+                            postUniqueId={item.post.uniqueId}
+                            userUniqueId={item.author.uniqueId}
                         />
                     </div>
                 ))
