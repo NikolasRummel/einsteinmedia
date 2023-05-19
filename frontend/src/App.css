@@ -273,5 +273,7 @@ html, body {
     pointer-events: none; /* Prevent interactions with the blurred background */
 }
 
-
+.delete-post:hover {
+    color: darkred;
+}
 
