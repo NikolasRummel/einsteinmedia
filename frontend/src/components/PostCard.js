@@ -4,13 +4,36 @@ import Swal from "sweetalert2";
 import {getAuthKey} from "../api/authApi";
 import {HttpStatusCode} from "axios";
 import {Button, Card, OverlayTrigger, Tooltip} from "react-bootstrap";
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Navigate, useHistory, useNavigate} from "react-router-dom";
 
-function PostCardComponent({profileImage, userName, firstName, lastName, timestamp, headline, text, postUniqueId, userUniqueId}) {
+function PostCardComponent({
+                               profileImage,
+                               userName,
+                               firstName,
+                               lastName,
+                               timestamp,
+                               headline,
+                               text,
+                               postUniqueId,
+                               userUniqueId,
+                           }) {
 
     const [isCardVisible, setIsCardVisible] = useState(false);
+    const [showToolTip, setShowToolTip] = useState(true);
     const navigate = useNavigate();
+
+    useEffect(() => {
+       const currentPath = window.location.pathname;
+       if(currentPath.includes("profile/visit")) {
+           setShowToolTip(false)
+       }
+
+       if(userUniqueId === authApi.getUser().uniqueId) {
+           setShowToolTip(false)
+       }
+    });
+
 
     const deletePost = () => {
         Swal.fire({
@@ -72,7 +95,6 @@ function PostCardComponent({profileImage, userName, firstName, lastName, timesta
         return <Button onClick={() => visitProfile(userId)}>Visit this user</Button>;
     };
 
-
     return (
         <>
             <div className="card">
@@ -82,7 +104,7 @@ function PostCardComponent({profileImage, userName, firstName, lastName, timesta
                     onMouseLeave={() => setIsCardVisible(false)}
                 >
                     <div className="d-flex justify-content-between align-items-center post-user">
-                        {isCardVisible && (
+                        {isCardVisible && showToolTip &&  (
                             <div className="tooltip-card">
                                 <div className="ml-2">
                                     <div className="h5 m-0">@{userName}</div>

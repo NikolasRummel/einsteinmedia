@@ -283,7 +283,9 @@ html, body {
 }
 
 .tooltip-card {
-    width: 50%;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
     position: absolute;
     z-index: 9999;
     background-color: #fff;

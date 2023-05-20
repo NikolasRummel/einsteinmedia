@@ -3,6 +3,7 @@ import {Form, Button, Card} from 'react-bootstrap';
 import {useLocation, useNavigate} from "react-router-dom";
 import * as authApi from "../api/authApi";
 import Feed from "./main/Feed";
+import * as userApi from "../api/userApi";
 
 function VisitProfile() {
     // Den "message"-Parameter aus der URL abrufen
@@ -19,6 +20,10 @@ function VisitProfile() {
 
     const navigate = useNavigate();
 
+    const isCurrentUserFollowing = userApi.isCurrentUserFollowingUser(userId);
+    const buttonClass = isCurrentUserFollowing ? 'follow-button btn btn-secondary' : 'follow-button btn btn-primary';
+
+
     async function fetchUserData() {
         return await authApi.fetchUserById(userId).then(value => {
             setEmail(value.email);
@@ -34,6 +39,21 @@ function VisitProfile() {
         fetchUserData().then(r => console.log(r));
 
     }, []);
+
+    function handleFollowButton() {
+
+    }
+
+    function followButtonName (){
+        if (!authApi.isLoggedIn()) {
+            return "Login to follow "
+        } else {
+            if(isCurrentUserFollowing) {
+                return "unfollow"
+            }
+            return "follow now"
+        }
+    }
 
     return (
         <div>
@@ -66,7 +86,7 @@ function VisitProfile() {
                 </div>
             </div>
             <div className="profile-banner">
-                <Button className="follow-button">Follow</Button>
+                <Button className={buttonClass} onClick={handleFollowButton}>{followButtonName()}</Button>
             </div>
             <div className="profile-content">
                 <div className="container py-5">
