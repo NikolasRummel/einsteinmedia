@@ -68,7 +68,7 @@ public class FollowerController {
 
     @HttpMapping(path = "/followers/{uniqueId}", method = HttpMethod.GET)
     public List<User> getFollowers(HttpRequest request, HttpResponse response) {
-        String userIdParam = request.getPathParameter("uniqueId");
+        String userIdParam = request.getPathParameter("uniqueId").trim();
         int userId = Integer.parseInt(userIdParam);
 
         List<User> followers = followerRepository.getFollowers(userId);
@@ -82,7 +82,7 @@ public class FollowerController {
 
     @HttpMapping(path = "/followers/{uniqueId}/followees", method = HttpMethod.GET)
     public List<User> getFollowees(HttpRequest request, HttpResponse response) {
-        String userIdParam = request.getPathParameter("uniqueId");
+        String userIdParam = request.getPathParameter("uniqueId").trim();
         int userId = Integer.parseInt(userIdParam);
 
         List<User> followees = followerRepository.getFollowees(userId);

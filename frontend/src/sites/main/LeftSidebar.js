@@ -16,7 +16,6 @@ export default function Leftsidebar() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const navigate = useNavigate();
 
-
     const showCreatePostPopup = () => {
         if (!authApi.isLoggedIn()) {
             Swal.fire({

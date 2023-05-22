@@ -24,16 +24,18 @@ function PostCardComponent({
     const navigate = useNavigate();
 
     useEffect(() => {
-       const currentPath = window.location.pathname;
-       if(currentPath.includes("profile/visit")) {
-           setShowToolTip(false)
-       }
+        const currentPath = window.location.pathname;
+        if (currentPath.includes("profile/visit")) {
+            setShowToolTip(false)
+        }
 
-       if(userUniqueId === authApi.getUser().uniqueId) {
-           setShowToolTip(false)
-       }
+        if (authApi.getUser() != null) {
+            if (userUniqueId === authApi.getUser().uniqueId) {
+                setShowToolTip(false)
+            }
+        }
+
     });
-
 
     const deletePost = () => {
         Swal.fire({
@@ -104,7 +106,7 @@ function PostCardComponent({
                     onMouseLeave={() => setIsCardVisible(false)}
                 >
                     <div className="d-flex justify-content-between align-items-center post-user">
-                        {isCardVisible && showToolTip &&  (
+                        {isCardVisible && showToolTip && (
                             <div className="tooltip-card">
                                 <div className="ml-2">
                                     <div className="h5 m-0">@{userName}</div>

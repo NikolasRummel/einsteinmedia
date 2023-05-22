@@ -80,6 +80,17 @@ public class PostController {
         return postResponses;
     }
 
+    @HttpMapping(path = "/posts/user/{uniqueId}", method = HttpMethod.GET)
+    public List<PostResponse> getPostsOfUserById(HttpRequest request, HttpResponse response) {
+        int uniqueId = Integer.parseInt(request.getPathParameter("uniqueId"));
+
+        String email = userRepository.getUser(uniqueId).getEmail();
+
+        ArrayList<PostResponse> postResponses = postsRepository.getAllPostsResponses(email);
+        Collections.reverse(postResponses);
+        return postResponses;
+    }
+
     @HttpMapping(path = "/posts/self", method = HttpMethod.GET)
     public List<PostResponse> getPostsOfUser(HttpRequest request, HttpResponse response) {
         if (!authProvider.checkToken(request.getToken())) {

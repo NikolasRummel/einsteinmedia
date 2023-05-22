@@ -4,13 +4,14 @@ import {useLocation, useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
 import * as authApi from "../api/authApi";
 import PrivateFeed from "./profile/PrivateFeed";
+import * as userApi from "../api/userApi";
+import {fetchAllFollowments} from "../api/userApi";
 
 function Profile() {
     // Den "message"-Parameter aus der URL abrufen
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const message = queryParams.get('message');
-    const userId = queryParams.get('userId');
 
     const [email, setEmail] = useState('max@mustermann.de');
     const [firstName, setFirstName] = useState('Max');
@@ -18,9 +19,19 @@ function Profile() {
     const [username, setUsername] = useState('MaxGamer123');
     const [bannerImage, setBannerImage] = useState("https://pbs.twimg.com/profile_banners/44196397/1576183471/600x200");
     const [profileImage, setProfileImage] = useState("https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg");
+    const [followers, setFollowers] = useState([]);
+    const [followees, setFollowees] = useState([]);
 
     const navigate = useNavigate();
     const user = authApi.getUser();
+
+    async function fetchFollowers() {
+        return await userApi.fetchFollowers(user.uniqueId)
+    }
+
+    async function fetchFollowees() {
+        return await userApi.fetchFollowees(user.uniqueId)
+    }
 
     useEffect(() => {
         if (!authApi.isLoggedIn()) {
@@ -48,6 +59,10 @@ function Profile() {
             if (message === 'success') {
                 showSuccessToast()
             }
+
+
+            fetchFollowers().then(r => setFollowers(r));
+            fetchFollowees().then(r => setFollowees(r));
         }
     }, []);
 
@@ -74,15 +89,11 @@ function Profile() {
                 <div className="profile-stats">
                     <div className="profile-stat">
                         <h4>Followers</h4>
-                        <p>10</p>
+                        <p>{followers.length}</p>
                     </div>
                     <div className="profile-stat">
                         <h4>Following</h4>
-                        <p>10</p>
-                    </div>
-                    <div className="profile-stat">
-                        <h4>Postings</h4>
-                        <p>10</p>
+                        <p>{followees.length}</p>
                     </div>
                 </div>
                 <div className="profile-image-large">
@@ -122,14 +133,15 @@ function Profile() {
                         <div className="col-md-4 col-sm-12">
                             <h3>Last posts</h3>
                             <div style={{height: '400px', overflow: 'auto'}}>
-                                <PrivateFeed></PrivateFeed>
+                                {user && (
+                                    <PrivateFeed userId={user.uniqueId}></PrivateFeed>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     );
 }
 

@@ -43,3 +43,43 @@ export function isCurrentUserFollowingUser(userId) {
     //return if currend user follows an other
     return false
 }
+
+export async function fetchFollowers(uniqueId) {
+    try {
+        const response = await fetch('http://localhost:8081/followers/' + uniqueId, {});
+
+        if (!response.ok) {
+            throw new Error('Error fetching user');
+        }
+
+        return await response.json();
+
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+export async function fetchFollowees(uniqueId) {
+    try {
+        const response = await fetch('http://localhost:8081/followers/' + uniqueId + ' /followees', {});
+
+        if (!response.ok) {
+            throw new Error('Error fetching user');
+        }
+
+        return await response.json();
+
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+export async function fetchAllFollowments(uniqueId) {
+    return await Promise.all([
+        fetchFollowers(uniqueId),
+        fetchFollowees(uniqueId)
+    ])
+}
+

@@ -3,9 +3,8 @@ import PostCard from "../../components/PostCard";
 import {Card} from "react-bootstrap";
 import * as authApi from "../../api/authApi";
 
-const PrivateFeed = () => {
+const PrivateFeed = ({userId}) => {
     const [posts, setPosts] = useState([]);
-
 
     useEffect(() => {
         const requestOptions = {
@@ -15,7 +14,7 @@ const PrivateFeed = () => {
             },
         };
 
-        fetch("http://localhost:8081/posts/self", requestOptions)
+        fetch("http://localhost:8081/posts/user/" + userId, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 setPosts(data);

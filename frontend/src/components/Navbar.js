@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import * as authApi from '../api/authApi';
-import logo from '../assets/aes.png';
+import logo from '../assets/aes-white.png';
 import { Button } from "react-bootstrap";
 
 function NavbarComponent() {
@@ -29,7 +29,7 @@ function NavbarComponent() {
         <Navbar expand="lg" sticky="top" variant="dark" style={{ backgroundColor: "#1e2124" }}>
             <Container fluid>
                 <Navbar.Brand href="#">
-                    <img height="40px" src={logo} alt="Logo" />
+                    <img height="40px" src={logo} alt="Logo" style={{opacity: 0.9}}/>
                     <b> EinsteinMedia</b>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />

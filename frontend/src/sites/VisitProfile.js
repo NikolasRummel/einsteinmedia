@@ -4,6 +4,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import * as authApi from "../api/authApi";
 import Feed from "./main/Feed";
 import * as userApi from "../api/userApi";
+import PrivateFeed from "./profile/PrivateFeed";
 
 function VisitProfile() {
     // Den "message"-Parameter aus der URL abrufen
@@ -113,7 +114,7 @@ function VisitProfile() {
                         <div className="col-md-4 col-sm-12">
                             <h3>Last posts</h3>
                             <div style={{height: '400px', overflow: 'auto'}}>
-                                <Feed></Feed>
+                                <PrivateFeed userId={userId}></PrivateFeed>
                             </div>
                         </div>
                     </div>
