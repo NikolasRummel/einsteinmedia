@@ -203,9 +203,6 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
         nettyResponse.headers().set(Names.ACCESS_CONTROL_ALLOW_METHODS, "GET,PUT,POST,DELETE");
         nettyResponse.headers().set(Names.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization");
 
-        System.out.println("###############");
-        System.out.println(nettyRequest);
-        System.out.println("###############");
         ctx.write(nettyResponse);
 
 

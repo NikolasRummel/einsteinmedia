@@ -57,3 +57,32 @@ export async function fetchUserById(id) {
         throw error;
     }
 }
+
+export function fetchFollowers(id) {
+    try {
+        const response = fetch('http://localhost:8081/followers/count/' + id + "/followers/", {});
+        if (!response.ok) {
+            throw new Error('Error retrieving followers');
+        }
+        const json = response.json();
+        return json;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+export function fetchFollowees(id) {
+    try {
+        const response = fetch('http://localhost:8081/followers/count/' + id + "/followees/", {});
+        if (!response.ok) {
+            throw new Error('Error retrieving followers');
+        }
+        const json = response.json();
+        return json;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+

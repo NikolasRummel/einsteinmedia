@@ -18,6 +18,8 @@ function VisitProfile() {
     const [username, setUsername] = useState('MaxGamer123');
     const [bannerImage, setBannerImage] = useState("https://pbs.twimg.com/profile_banners/44196397/1576183471/600x200");
     const [profileImage, setProfileImage] = useState("https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg");
+    const [followers, setFollowers] = useState();
+    const [followees, setFollowees] = useState();
 
     const navigate = useNavigate();
 
@@ -36,9 +38,27 @@ function VisitProfile() {
         });
     }
 
-    useEffect(() => {
-        fetchUserData().then(r => console.log(r));
+    const fetchData = async () => {
+        try {
+            const followersCount = await userApi.fetchFollowersCount(userId)
+            setFollowers(followersCount);
 
+            const followeesCount = await userApi.fetchFolloweesCount(userId)
+            setFollowees(followeesCount);
+
+            console.log("FOLLOW:")
+            console.log(followersCount)
+            console.log(followeesCount)
+        } catch (error) {
+            // Fehlerbehandlung, falls ein Fehler auftritt
+            console.log('Fehler bei der Datenabfrage:', error);
+            // Hier kannst du entsprechende Fehlerbehandlungsschritte durchführen, z. B. eine Fehlermeldung anzeigen oder den State entsprechend aktualisieren.
+        }
+    };
+
+    useEffect(() => {
+        fetchUserData()
+        fetchData()
     }, []);
 
     function handleFollowButton() {
@@ -66,15 +86,11 @@ function VisitProfile() {
                 <div className="profile-stats">
                     <div className="profile-stat">
                         <h4>Followers</h4>
-                        <p>10</p>
+                        <p>{followers}</p>
                     </div>
                     <div className="profile-stat">
                         <h4>Following</h4>
-                        <p>10</p>
-                    </div>
-                    <div className="profile-stat">
-                        <h4>Postings</h4>
-                        <p>10</p>
+                        <p>{followees}</p>
                     </div>
                 </div>
                 <div className="profile-image-large">

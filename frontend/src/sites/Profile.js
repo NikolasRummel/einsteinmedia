@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 import * as authApi from "../api/authApi";
 import PrivateFeed from "./profile/PrivateFeed";
 import * as userApi from "../api/userApi";
-import {fetchAllFollowments} from "../api/userApi";
 
 function Profile() {
     // Den "message"-Parameter aus der URL abrufen

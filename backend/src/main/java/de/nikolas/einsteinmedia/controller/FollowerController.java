@@ -93,4 +93,39 @@ public class FollowerController {
 
         return followees;
     }
+
+
+    @HttpMapping(path = "/followers/count/{uniqueId}/followees", method = HttpMethod.GET)
+    public int getFolloweesCount(HttpRequest request, HttpResponse response) {
+        System.out.println("--------------------------------");
+        System.out.println(request.toString());
+        System.out.println("--------------------------------");
+
+        String userIdParam = request.getPathParameter("uniqueId").trim();
+        int userId = Integer.parseInt(userIdParam);
+
+        List<User> followees = followerRepository.getFollowees(userId);
+        if (followees == null) {
+            System.out.println("follwees: is null" );
+            response.setStatusCode(HttpStatus.NOT_FOUND);
+            return -1;
+        }
+
+        System.out.println("follwers: " + followees.size());
+        return followees.size();
+    }
+
+    @HttpMapping(path = "/followers/count/{uniqueId}/followers", method = HttpMethod.GET)
+    public int getFollowersCount(HttpRequest request, HttpResponse response) {
+        String userIdParam = request.getPathParameter("uniqueId").trim();
+        int userId = Integer.parseInt(userIdParam);
+
+        List<User> followers = followerRepository.getFollowers(userId);
+        if (followers == null) {
+            response.setStatusCode(HttpStatus.NOT_FOUND);
+            return -1;
+        }
+
+        return followers.size();
+    }
 }
