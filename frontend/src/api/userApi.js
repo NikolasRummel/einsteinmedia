@@ -41,11 +41,6 @@ export async function fetchUserById(id) {
     }
 }
 
-export function isCurrentUserFollowingUser(userId) {
-    //return if currend user follows an other
-    return false
-}
-
 export async function fetchFollowers(uniqueId) {
     try {
         const response = await fetch('http://localhost:8081/followers/' + uniqueId, {});
@@ -105,6 +100,32 @@ export async function fetchFolloweesCount(id) {
     } catch (error) {
         console.log('Fehler beim Abrufen der Followee-Anzahl:', error);
         return -1; // oder einen anderen Fehlerwert, der angemessen ist
+    }
+}
+
+export async function isCurrentUserFollowingUser(uniqueId, uniqueId2) {
+    try {
+        const response = await fetch(`http://localhost:8081/followers/isFollowing`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                uniqueId: uniqueId,
+                uniqueId2: uniqueId2
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Fehler beim Überprüfen der Verbindung');
+        }
+
+        const isFollowing = await response.json();
+        return isFollowing;
+
+    } catch (error) {
+        console.error('Fehler:', error);
+        throw error;
     }
 }
 

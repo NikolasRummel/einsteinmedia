@@ -24,7 +24,7 @@ function FooterComponent() {
 
                         <ul className='list-unstyled mb-0'>
                             <li>
-                                <a href='#!' className='text-white'>
+                                <a href='/impress' className='text-white'>
                                     Impress
                                 </a>
                             </li>

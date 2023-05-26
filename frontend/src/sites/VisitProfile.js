@@ -20,12 +20,24 @@ function VisitProfile() {
     const [profileImage, setProfileImage] = useState("https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg");
     const [followers, setFollowers] = useState();
     const [followees, setFollowees] = useState();
+    const [isCurrentUserFollowing, setIsCurrentUserFollowing] = useState(false);
 
     const navigate = useNavigate();
 
-    const isCurrentUserFollowing = userApi.isCurrentUserFollowingUser(userId);
     const buttonClass = isCurrentUserFollowing ? 'follow-button btn btn-secondary' : 'follow-button btn btn-primary';
 
+    async function checkIfCurrentUserIsFollowingUser(userId) {
+        try {
+            const isFollowing = await userApi.isCurrentUserFollowingUser(userId, userApi.getUser().uniqueId);
+
+            console.log("isFollowing" + userId + ":" + isFollowing)
+
+            return isFollowing;
+        } catch (error) {
+            console.error('Fehler beim Überprüfen der Verbindung:', error);
+            return false;
+        }
+    }
 
     async function fetchUserData() {
         return await authApi.fetchUserById(userId).then(value => {
@@ -59,6 +71,10 @@ function VisitProfile() {
     useEffect(() => {
         fetchUserData()
         fetchData()
+
+        checkIfCurrentUserIsFollowingUser(userId)
+            .then(result => setIsCurrentUserFollowing(result))
+            .catch(error => console.error('Fehler:', error));
     }, []);
 
     function handleFollowButton() {
