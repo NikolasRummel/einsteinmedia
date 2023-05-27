@@ -129,5 +129,28 @@ export async function isCurrentUserFollowingUser(uniqueId, uniqueId2) {
     }
 }
 
+export function sendFollowRequest(email) { //follower from session user
+    return fetch("http://localhost:8081/followers/add", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': authApi.getAuthKey(),
+        },
+        body: JSON.stringify({
+            email: email,
+        })
+    })
+}
 
-
+export function sendUnFollowRequest(email) { //follower from session user
+    return fetch("http://localhost:8081/followers/remove", {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': authApi.getAuthKey(),
+        },
+        body: JSON.stringify({
+            email: email,
+        })
+    })
+}

@@ -62,7 +62,6 @@ public class PostController {
                 .filter(postResponse -> postResponse.getPost().getUniqueId() == uniqueId)
                 .findAny();
 
-        System.out.println(optional.isPresent() + "++++++++++++++++");
         if (optional.isPresent()) {
             response.setStatusCode(HttpStatus.OK);
             postsRepository.deletePost(uniqueId);

@@ -26,6 +26,7 @@ public class FollowerController {
     @HttpMapping(path = "/followers/add", method = HttpMethod.POST)
     public String addFollower(HttpRequest request, HttpResponse response) {
         if (!authProvider.checkToken(request.getToken())) {
+            System.out.println("token: "+ request.getToken());
             response.setStatusCode(HttpStatus.FORBIDDEN);
             return null;
         }
@@ -62,7 +63,6 @@ public class FollowerController {
             response.setStatusCode(HttpStatus.NOT_FOUND);
             return "User not found";
         }
-
         followerRepository.removeFollower(followee.getUniqueId(), followerId);
         return "Successfully removed follower";
     }
@@ -137,11 +137,8 @@ public class FollowerController {
         int userId = isFollowingRequest.getUniqueId();
         int userId2 = isFollowingRequest.getUniqueId2();
 
-        List<User> followers = followerRepository.getFollowers(userId2);
-
-        boolean found =  followers.stream().anyMatch(user -> user.getUniqueId() == userId);
-
-        System.out.println("FOUND: " + found);
+        List<User> followers = followerRepository.getFollowers(userId);
+        boolean found =  followers.stream().anyMatch(user -> user.getUniqueId() == userId2);
 
         return found;
     }

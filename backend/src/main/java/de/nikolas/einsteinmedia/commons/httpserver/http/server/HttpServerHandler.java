@@ -51,9 +51,6 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
         FullHttpRequest nettyRequest = (FullHttpRequest) msg;
         logger.info("Received new " + nettyRequest.method().name() + " request.");
 
-        System.out.println("++++++++++++++++");
-        System.out.println(nettyRequest.toString());
-        System.out.println("++++++++++++++++");
 
         if (HttpHeaders.is100ContinueExpected(nettyRequest)) {
           ctx.write(new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK));

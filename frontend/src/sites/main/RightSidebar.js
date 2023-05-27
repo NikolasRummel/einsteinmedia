@@ -1,9 +1,28 @@
-import React from "react";
-import * as authApi from "../../api/authApi"
+import React, {useEffect, useState} from "react";
+import {Card} from "react-bootstrap";
+import * as authApi from "../../api/authApi";
+import * as userApi from "../../api/userApi";
 
 export default function Rightsidebar() {
 
     const user = authApi.getUser();
+
+    const [followees, setFollowees] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                return await userApi.fetchFollowees(user.uniqueId);
+            } catch (error) {
+                console.error('Error fetching followees:', error);
+            }
+        };
+
+        fetchData().then(value => {
+            console.log(value)
+            setFollowees(value)
+        });
+    }, []);
 
     return (
         <>
@@ -23,22 +42,17 @@ export default function Rightsidebar() {
             )}
             {
                 authApi.isLoggedIn() && (
-                    <div className="card">
-                        <div className="card-body">
-                            <div className="h5">@{user.userName}</div>
-                            <div className="h7 text-muted">Fullname: {user.firstName} {user.lastName}</div>
-                        </div>
-                        <ul className="list-group list-group-flush">
-                            <li className="list-group-item">
-                                <div className="h6 text-muted">Followers</div>
-                                <div className="h5">5.2342</div>
-                            </li>
-                            <li className="list-group-item">
-                                <div className="h6 text-muted">Following</div>
-                                <div className="h5">6758</div>
-                            </li>
-                        </ul>
-                    </div>
+                    <Card>
+                        <Card.Body>
+                            <Card.Title><b>Following</b></Card.Title>
+                            {followees.map((followee) => (
+                                <div key={followee.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                                    <img height="40px" src={followee.profileImage} alt="UserProfile" className="profile-image" />
+                                    <Card.Text style={{ marginLeft: '5px' }}>{followee.userName}</Card.Text>
+                                </div>
+                            ))}
+                        </Card.Body>
+                    </Card>
                 )
             }
             <br/>

@@ -5,6 +5,7 @@ import * as authApi from "../api/authApi";
 import Feed from "./main/Feed";
 import * as userApi from "../api/userApi";
 import PrivateFeed from "./profile/PrivateFeed";
+import {sendFollowRequest} from "../api/userApi";
 
 function VisitProfile() {
     // Den "message"-Parameter aus der URL abrufen
@@ -50,7 +51,7 @@ function VisitProfile() {
         });
     }
 
-    const fetchData = async () => {
+    const fetchFollowers = async () => {
         try {
             const followersCount = await userApi.fetchFollowersCount(userId)
             setFollowers(followersCount);
@@ -68,17 +69,24 @@ function VisitProfile() {
         }
     };
 
-    useEffect(() => {
+    function fetchAllData() {
         fetchUserData()
-        fetchData()
-
-        checkIfCurrentUserIsFollowingUser(userId)
+            .then(() => fetchFollowers())
+            .then(() => checkIfCurrentUserIsFollowingUser(userId))
             .then(result => setIsCurrentUserFollowing(result))
             .catch(error => console.error('Fehler:', error));
-    }, []);
+    }
 
     function handleFollowButton() {
-
+        if (isCurrentUserFollowing) {
+            userApi.sendUnFollowRequest(email)
+                .then(() => fetchAllData())
+                .catch(error => console.error('Fehler:', error));
+        } else {
+            userApi.sendFollowRequest(email)
+                .then(() => fetchAllData())
+                .catch(error => console.error('Fehler:', error));
+        }
     }
 
     function followButtonName (){
@@ -91,6 +99,10 @@ function VisitProfile() {
             return "follow now"
         }
     }
+
+    useEffect(() => {
+        fetchAllData();
+    }, []);
 
     return (
         <div>
