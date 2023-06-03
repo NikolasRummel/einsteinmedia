@@ -19,7 +19,7 @@ export const NewPost = ({onClose}) => {
             body: JSON.stringify({
                 headline: headline,
                 text: text,
-                imageSource: imageSource,
+                imageLink: imageSource,
             })
         };
 

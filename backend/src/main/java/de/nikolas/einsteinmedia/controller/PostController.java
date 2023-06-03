@@ -39,6 +39,8 @@ public class PostController {
         PostRequestModel requestModel = request.getBodyAsObject(PostRequestModel.class);
         int authorId = userRepository.getUser(email).getUniqueId();
 
+        System.out.println("000000" + requestModel.getImageLink() + "0000000");
+
         postsRepository.createPost(new Post(
                 -1, authorId, String.valueOf(System.currentTimeMillis()),
                 requestModel.getHeadline(), requestModel.getImageLink(), requestModel.getText(), 0

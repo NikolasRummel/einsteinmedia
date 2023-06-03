@@ -9,6 +9,20 @@ export default function Rightsidebar() {
 
     const [followees, setFollowees] = useState([]);
 
+    const renderFollowees = () => {
+        if (followees.length === 0) {
+            return <p>Visit a profile to make contacts</p>;
+        } else {
+            return followees.map((followee) => (
+                <div key={followee.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                    <img height="40px" src={followee.profileImage} alt="UserProfile" className="profile-image" />
+                    <Card.Text style={{ marginLeft: '5px' }}>{followee.userName}</Card.Text>
+                </div>
+            ));
+        }
+    }
+
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -44,13 +58,8 @@ export default function Rightsidebar() {
                 authApi.isLoggedIn() && (
                     <Card>
                         <Card.Body>
-                            <Card.Title><b>Following</b></Card.Title>
-                            {followees.map((followee) => (
-                                <div key={followee.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                                    <img height="40px" src={followee.profileImage} alt="UserProfile" className="profile-image" />
-                                    <Card.Text style={{ marginLeft: '5px' }}>{followee.userName}</Card.Text>
-                                </div>
-                            ))}
+                            <Card.Title><b>Contacts</b></Card.Title>
+                            {renderFollowees()}
                         </Card.Body>
                     </Card>
                 )

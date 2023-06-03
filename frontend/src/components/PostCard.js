@@ -3,7 +3,7 @@ import * as authApi from "../api/authApi";
 import Swal from "sweetalert2";
 import {getAuthKey} from "../api/authApi";
 import {HttpStatusCode} from "axios";
-import {Button, Card, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {Button, Card, Image, OverlayTrigger, Tooltip} from "react-bootstrap";
 import React, {useEffect, useState} from 'react';
 import {Navigate, useHistory, useNavigate} from "react-router-dom";
 
@@ -17,6 +17,7 @@ function PostCardComponent({
                                text,
                                postUniqueId,
                                userUniqueId,
+                               imageLink
                            }) {
 
     const [isCardVisible, setIsCardVisible] = useState(false);
@@ -89,6 +90,14 @@ function PostCardComponent({
         }
     }
 
+    const renderImageLink = () => {
+        console.log(imageLink + " #+#+#+#+")
+        if (imageLink !== null && imageLink !== undefined && imageLink !== "") {
+            return <img src={imageLink} className="w-100" alt='Posting Image' />;
+        }
+    }
+
+
     function visitProfile(userId) {
         navigate('/profile/visit?userId=' + userId);
     }
@@ -142,6 +151,7 @@ function PostCardComponent({
                             {timestamp}
                         </div>
                     </div>
+                    {renderImageLink()}
                     <p className="card-text">{text}</p>
                 </div>
                 <div className="card-footer">

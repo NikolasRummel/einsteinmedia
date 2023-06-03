@@ -2,6 +2,7 @@ import React from 'react';
 import LeftSidebar from './main/LeftSidebar';
 import RightSidebar from './main/RightSidebar';
 import Feed from './main/Feed';
+import PostCard from "../components/PostCard";
 
 export default function LastPosts() {
     return (
