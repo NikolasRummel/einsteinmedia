@@ -127,6 +127,31 @@ public class UserRepository {
         return null;
     }
 
+    public int getUserCount() {
+        ResultSet resultSet = this.databaseConnection.asyncQuery("SELECT COUNT(*) AS userCount FROM users");
+        try {
+            if (resultSet.next()) {
+                return resultSet.getInt("userCount");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public String getLatestUser() {
+        ResultSet resultSet = this.databaseConnection.asyncQuery("SELECT firstName, lastName FROM users ORDER BY uniqueId DESC LIMIT 1");
+        try {
+            if (resultSet.next()) {
+                return resultSet.getString("userName");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     public DatabaseConnection getDatabaseConnection() {
         return databaseConnection;
     }

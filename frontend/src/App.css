@@ -210,7 +210,6 @@ html, body {
     padding-left: 2px;
     font-size: 20px;
     display: grid;
-    grid-template-columns: 2rem 5rem;
     grid-gap: 1px;
     border-radius: 4px;
 }

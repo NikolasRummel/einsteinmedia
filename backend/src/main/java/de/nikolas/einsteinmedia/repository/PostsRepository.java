@@ -73,6 +73,19 @@ public class PostsRepository {
         this.logger.info("Successfully removed post (postId: " + postId + ")");
     }
 
+    public int getPostCount() {
+        ResultSet resultSet = this.databaseConnection.asyncQuery("SELECT COUNT(*) AS postCount FROM posts");
+        try {
+            if (resultSet.next()) {
+                return resultSet.getInt("postCount");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+
     public ArrayList<PostResponse> getAllPostsResponses() {
         ArrayList<PostResponse> posts = new ArrayList<>();
 
