@@ -38,7 +38,6 @@ public class PostsRepository {
 
         this.databaseConnection.queryUpdate(SQL_CREATE);
         this.logger = Logger.Factory.createLogger(PostsRepository.class);
-        this.logger.info("Started connection to sql server");
     }
 
     public void createPost(Post post) {

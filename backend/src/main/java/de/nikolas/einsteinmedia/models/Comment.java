@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class Comment {
 
   private int uniqueId;
+  private int postId;
   private int authorId;
   private String timestamp;
   private String text;

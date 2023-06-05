@@ -351,7 +351,8 @@ html, body {
 .comment-box {
     background-color: white;
     border: 1px solid #cccccc;
-    padding: 25px;
+    padding-left: 20px;
+    padding-top: 20px;
 }
 
 .comment-box:hover {

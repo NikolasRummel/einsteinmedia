@@ -7,6 +7,7 @@ import {Button, Card, FormControl, Image, OverlayTrigger, Tooltip} from "react-b
 import React, {useEffect, useState} from 'react';
 import {Navigate, useHistory, useNavigate} from "react-router-dom";
 import CommentsComponent from "./Comment";
+import comment from "./Comment";
 
 function PostCardComponent({
                                profileImage,
@@ -26,45 +27,65 @@ function PostCardComponent({
 
     const [showComments, setShowComments] = useState(false);
     const [commentText, setCommentText] = useState('');
+    const [comments, setComments] = useState([]);
 
     const navigate = useNavigate();
 
+    const fetchComments = async () => {
+        try {
+            const response = await fetch(`http://localhost:8081/comments/post/${postUniqueId}`);
+            const data = await response.json();
+            setComments(data);
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+        }
+    };
+
     const toggleComments = () => {
+        if (!showComments) {
+            fetchComments();
+            console.log(comments)
+        }
         setShowComments(!showComments);
     };
 
-    const submitComment = () => {
-        console.log('New comment:', commentText);
-        setCommentText('');
-    };
+    const submitComment = async () => {
+        try {
+            const response = await fetch('http://localhost:8081/comments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': getAuthKey()
+                },
+                body: JSON.stringify({
+                    postId: postUniqueId,
+                    text: commentText
+                })
+            });
 
-    const comments = [
-        {
-            profileImage: "https://media.discordapp.net/attachments/473978204038889472/1108093210682728560/AmigoAlone.png?width=807&height=1403",
-            userName: "ElonMusk",
-            text: "First comment"
-        },
-        {
-            profileImage: "https://media.discordapp.net/attachments/473978204038889472/1108093210682728560/AmigoAlone.png?width=807&height=1403",
-            userName: "JeffBezos",
-            text: "Second comment"
+            if (response.ok) {
+                fetchComments();
+                setCommentText('');
+            } else {
+                console.error('Error submitting comment:', response.status);
+            }
+        } catch (error) {
+            console.error('Error submitting comment:', error);
         }
-    ];
-
+    };
 
     useEffect(() => {
         const currentPath = window.location.pathname;
         if (currentPath.includes("profile/visit")) {
-            setShowToolTip(false)
+            setShowToolTip(false);
         }
 
-        if (authApi.getUser() != null) {
+        if (authApi.getUser() !== null) {
             if (userUniqueId === authApi.getUser().uniqueId) {
-                setShowToolTip(false)
+                setShowToolTip(false);
             }
         }
-
-    });
+    }, []);
 
     const deletePost = () => {
         Swal.fire({
@@ -106,7 +127,7 @@ function PostCardComponent({
                 }
             });
         });
-    }
+    };
 
     const renderCloseButton = () => {
         let user = authApi.getUser();
@@ -114,16 +135,15 @@ function PostCardComponent({
         if (user === null) return null;
 
         if (user.userName === userName) {
-            return <FaTrash className={"delete-post"} onClick={deletePost}/>
+            return <FaTrash className={"delete-post"} onClick={deletePost} />;
         }
-    }
+    };
 
     const renderImageLink = () => {
-        console.log(imageLink + " #+#+#+#+")
         if (imageLink !== null && imageLink !== undefined && imageLink !== "") {
             return <img src={imageLink} className="w-100" alt='Posting Image' />;
         }
-    }
+    };
 
     function visitProfile(userId) {
         navigate('/profile/visit?userId=' + userId);
@@ -148,7 +168,7 @@ function PostCardComponent({
                                     <div className="h5 m-0">@{userName}</div>
                                     <div className="h7 text-muted">followed</div>
                                 </div>
-                                <br/>
+                                <br />
                                 {renderVisitProfileButton(userUniqueId)}
                             </div>
                         )}
@@ -171,10 +191,10 @@ function PostCardComponent({
                     </div>
                 </div>
                 <div className="card-body">
-                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <h3 className="card-title"><b>{headline}</b></h3>
                         <div className="text-muted h7 mb-2">
-                            <span><FaClock style={{marginRight: "3px", marginBottom: "3px"}}/></span>
+                            <span><FaClock style={{ marginRight: "3px", marginBottom: "3px" }} /></span>
                             {timestamp}
                         </div>
                     </div>
@@ -187,34 +207,34 @@ function PostCardComponent({
                         overlay={<Tooltip>{showComments ? 'Close Comments' : 'Open Comments'}</Tooltip>}
                     >
                         <div className="comment-button " onClick={toggleComments}>
-                            {showComments ? <FaFolderMinus className="comment-icon" /> : <FaFolderOpen className="comment-icon"/>}
+                            {showComments ? <FaFolderMinus className="comment-icon" /> : <FaFolderOpen className="comment-icon" />}
                             <span>{showComments ? 'Close Comments' : 'Open Comments'}</span>
                         </div>
                     </OverlayTrigger>
 
-
                     {showComments && (
                         <div className="comment-section">
                             <CommentsComponent comments={comments} />
-                            <div className="comment-input">
-                                <FormControl
-                                    type="text"
-                                    placeholder="Write a comment..."
-                                    value={commentText}
-                                    onChange={(e) => setCommentText(e.target.value)}
-                                />
-                                <Button variant="primary" onClick={submitComment}>
-                                    Submit
-                                </Button>
-                            </div>
+                            {authApi.isLoggedIn() && (
+                                <div className="comment-input">
+                                    <FormControl
+                                        type="text"
+                                        placeholder="Write a comment..."
+                                        value={commentText}
+                                        onChange={(e) => setCommentText(e.target.value)}
+                                    />
+                                    <Button variant="primary" onClick={submitComment}>
+                                        Submit
+                                    </Button>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
             </div>
-            <br/>
+            <br />
         </>
     );
 }
-
 
 export default PostCardComponent;
