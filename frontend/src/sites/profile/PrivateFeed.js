@@ -49,6 +49,7 @@ const PrivateFeed = ({userId}) => {
                             text={item.post.text}
                             postUniqueId={item.post.uniqueId}
                             userUniqueId={item.author.uniqueId}
+                            imageLink={item.post.imageLink}
                         />
                     </div>
                 ))
