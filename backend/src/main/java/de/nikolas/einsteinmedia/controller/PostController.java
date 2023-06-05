@@ -9,6 +9,8 @@ import de.nikolas.einsteinmedia.commons.httpserver.http.annotation.HttpControlle
 import de.nikolas.einsteinmedia.commons.httpserver.http.annotation.HttpMapping;
 import de.nikolas.einsteinmedia.commons.httpserver.utils.Providers;
 import de.nikolas.einsteinmedia.models.*;
+import de.nikolas.einsteinmedia.models.requests.PostRequestModel;
+import de.nikolas.einsteinmedia.models.responses.PostResponse;
 import de.nikolas.einsteinmedia.repository.PostsRepository;
 import de.nikolas.einsteinmedia.repository.UserRepository;
 

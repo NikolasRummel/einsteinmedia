@@ -7,21 +7,13 @@ import de.nikolas.einsteinmedia.commons.httpserver.http.HttpResponse;
 import de.nikolas.einsteinmedia.commons.httpserver.http.HttpStatus;
 import de.nikolas.einsteinmedia.commons.httpserver.http.annotation.HttpController;
 import de.nikolas.einsteinmedia.commons.httpserver.http.annotation.HttpMapping;
-import de.nikolas.einsteinmedia.commons.httpserver.utils.JsonUtils;
 import de.nikolas.einsteinmedia.commons.httpserver.utils.Providers;
-import de.nikolas.einsteinmedia.models.LoginRequestModel;
-import de.nikolas.einsteinmedia.models.LoginResponse;
-import de.nikolas.einsteinmedia.models.RegisterRequestModel;
+import de.nikolas.einsteinmedia.models.requests.LoginRequestModel;
+import de.nikolas.einsteinmedia.models.responses.LoginResponse;
+import de.nikolas.einsteinmedia.models.requests.RegisterRequestModel;
 import de.nikolas.einsteinmedia.models.User;
 import de.nikolas.einsteinmedia.repository.UserRepository;
 
-import java.sql.ResultSet;
-import java.util.Objects;
-
-/**
- * @author Nikolas Rummel
- * @since 17.10.2021
- */
 @HttpController
 public class UserController {
 

@@ -1,14 +1,10 @@
-package de.nikolas.einsteinmedia.models;
+package de.nikolas.einsteinmedia.models.responses;
 
+import de.nikolas.einsteinmedia.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author Nikolas Rummel
- * @since 09.09.2021
- * ## Post (id, date, headline, link, text, likes)
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,6 +1,5 @@
-package de.nikolas.einsteinmedia.models;
+package de.nikolas.einsteinmedia.models.responses;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

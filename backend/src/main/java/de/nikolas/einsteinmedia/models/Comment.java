@@ -7,14 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class Comment {
 
   private int uniqueId;
   private int authorId;
   private String timestamp;
-  private String headline;
-  private String imageLink;
   private String text;
-  private int likes;
 
 }

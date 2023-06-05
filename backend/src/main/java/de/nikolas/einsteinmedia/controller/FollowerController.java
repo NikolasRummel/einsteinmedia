@@ -8,8 +8,8 @@ import de.nikolas.einsteinmedia.commons.httpserver.http.HttpStatus;
 import de.nikolas.einsteinmedia.commons.httpserver.http.annotation.HttpController;
 import de.nikolas.einsteinmedia.commons.httpserver.http.annotation.HttpMapping;
 import de.nikolas.einsteinmedia.commons.httpserver.utils.Providers;
-import de.nikolas.einsteinmedia.models.FollowerRequestModel;
-import de.nikolas.einsteinmedia.models.IsFollowingRequest;
+import de.nikolas.einsteinmedia.models.requests.FollowerRequestModel;
+import de.nikolas.einsteinmedia.models.requests.IsFollowingRequestModel;
 import de.nikolas.einsteinmedia.models.User;
 import de.nikolas.einsteinmedia.repository.FollowerRepository;
 import de.nikolas.einsteinmedia.repository.UserRepository;
@@ -132,7 +132,7 @@ public class FollowerController {
 
     @HttpMapping(path = "/followers/isFollowing/", method = HttpMethod.POST)
     public boolean isFollowing(HttpRequest request, HttpResponse response) {
-        IsFollowingRequest isFollowingRequest = request.getBodyAsObject(IsFollowingRequest.class);
+        IsFollowingRequestModel isFollowingRequest = request.getBodyAsObject(IsFollowingRequestModel.class);
 
         int userId = isFollowingRequest.getUniqueId();
         int userId2 = isFollowingRequest.getUniqueId2();

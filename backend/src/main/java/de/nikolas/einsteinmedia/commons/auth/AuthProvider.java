@@ -2,17 +2,12 @@ package de.nikolas.einsteinmedia.commons.auth;
 
 import de.nikolas.einsteinmedia.commons.httpserver.http.server.HttpDispatcher;
 import de.nikolas.einsteinmedia.commons.httpserver.log.Logger;
-import de.nikolas.einsteinmedia.models.LoginRequestModel;
-import de.nikolas.einsteinmedia.models.User;
+import de.nikolas.einsteinmedia.models.requests.LoginRequestModel;
 
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.HashMap;
 
-/**
- * @author Nikolas Rummel
- * @since 18.10.2021
- */
 public class AuthProvider {
 
     private final Logger logger;

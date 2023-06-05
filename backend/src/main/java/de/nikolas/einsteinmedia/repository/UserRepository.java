@@ -1,19 +1,12 @@
 package de.nikolas.einsteinmedia.repository;
 
-import de.nikolas.einsteinmedia.commons.httpserver.utils.Providers;
-import de.nikolas.einsteinmedia.models.LoginRequestModel;
 import de.nikolas.einsteinmedia.models.User;
 import de.nikolas.einsteinmedia.commons.httpserver.log.Logger;
 
 import java.sql.ResultSet;
-import java.util.Objects;
 
 import lombok.Getter;
 
-/**
- * @author Nikolas Rummel
- * @since 29.09.2021
- */
 @Getter
 public class UserRepository {
 

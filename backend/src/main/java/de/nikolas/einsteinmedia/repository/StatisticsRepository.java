@@ -1,10 +1,9 @@
 package de.nikolas.einsteinmedia.repository;
 
 import de.nikolas.einsteinmedia.commons.httpserver.utils.Providers;
-import de.nikolas.einsteinmedia.models.StatisticsResponse;
+import de.nikolas.einsteinmedia.models.responses.StatisticsResponse;
 
 import java.sql.ResultSet;
-
 public class StatisticsRepository {
 
     private final UserRepository userRepository = Providers.get(UserRepository.class);

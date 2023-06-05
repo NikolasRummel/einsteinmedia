@@ -3,8 +3,7 @@ package de.nikolas.einsteinmedia.repository;
 import de.nikolas.einsteinmedia.commons.httpserver.log.Logger;
 import de.nikolas.einsteinmedia.commons.httpserver.utils.Providers;
 import de.nikolas.einsteinmedia.models.Post;
-import de.nikolas.einsteinmedia.models.PostRequestModel;
-import de.nikolas.einsteinmedia.models.PostResponse;
+import de.nikolas.einsteinmedia.models.responses.PostResponse;
 import de.nikolas.einsteinmedia.models.User;
 import lombok.Getter;
 
@@ -14,10 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * @author Nikolas Rummel
- * @since 29.09.2021
- */
 @Getter
 public class PostsRepository {
 
