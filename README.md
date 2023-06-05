@@ -9,7 +9,7 @@ EinsteinMedia is a social media platform created as a computer science class pro
 - Creating and browsing posts: Users can create new posts and browse through posts in their feed.
 - Posting categories: The platform supports various posting categories such as General, Science, and Other.
 - Group chat: Users can engage in live group chat discussions with other users.
-- Interacting with posts: Users can like, comment on, and share posts. (soon)
+- Interacting with posts: Users can comment on posts.
 - Private messaging: Users can send private messages to each other. (soon)
 
 ## Technologies Used
