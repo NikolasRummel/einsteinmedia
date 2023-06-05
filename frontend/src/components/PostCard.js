@@ -1,11 +1,12 @@
-import {FaClock, FaThumbsUp, FaTrash} from "react-icons/fa";
+import {FaClock, FaFolderMinus, FaFolderOpen, FaOpencart, FaThumbsDown, FaThumbsUp, FaTrash} from "react-icons/fa";
 import * as authApi from "../api/authApi";
 import Swal from "sweetalert2";
 import {getAuthKey} from "../api/authApi";
 import {HttpStatusCode} from "axios";
-import {Button, Card, Image, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {Button, Card, FormControl, Image, OverlayTrigger, Tooltip} from "react-bootstrap";
 import React, {useEffect, useState} from 'react';
 import {Navigate, useHistory, useNavigate} from "react-router-dom";
+import CommentsComponent from "./Comment";
 
 function PostCardComponent({
                                profileImage,
@@ -22,7 +23,34 @@ function PostCardComponent({
 
     const [isCardVisible, setIsCardVisible] = useState(false);
     const [showToolTip, setShowToolTip] = useState(true);
+
+    const [showComments, setShowComments] = useState(false);
+    const [commentText, setCommentText] = useState('');
+
     const navigate = useNavigate();
+
+    const toggleComments = () => {
+        setShowComments(!showComments);
+    };
+
+    const submitComment = () => {
+        console.log('New comment:', commentText);
+        setCommentText('');
+    };
+
+    const comments = [
+        {
+            profileImage: "https://media.discordapp.net/attachments/473978204038889472/1108093210682728560/AmigoAlone.png?width=807&height=1403",
+            userName: "ElonMusk",
+            text: "First comment"
+        },
+        {
+            profileImage: "https://media.discordapp.net/attachments/473978204038889472/1108093210682728560/AmigoAlone.png?width=807&height=1403",
+            userName: "JeffBezos",
+            text: "Second comment"
+        }
+    ];
+
 
     useEffect(() => {
         const currentPath = window.location.pathname;
@@ -97,7 +125,6 @@ function PostCardComponent({
         }
     }
 
-
     function visitProfile(userId) {
         navigate('/profile/visit?userId=' + userId);
     }
@@ -155,14 +182,39 @@ function PostCardComponent({
                     <p className="card-text">{text}</p>
                 </div>
                 <div className="card-footer">
-                    <a href="#" className="card-link">
-                        <FaThumbsUp/> Like
-                    </a>
+                    <OverlayTrigger
+                        placement="top"
+                        overlay={<Tooltip>{showComments ? 'Close Comments' : 'Open Comments'}</Tooltip>}
+                    >
+                        <div className="comment-button " onClick={toggleComments}>
+                            {showComments ? <FaFolderMinus className="comment-icon" /> : <FaFolderOpen className="comment-icon"/>}
+                            <span>{showComments ? 'Close Comments' : 'Open Comments'}</span>
+                        </div>
+                    </OverlayTrigger>
+
+
+                    {showComments && (
+                        <div className="comment-section">
+                            <CommentsComponent comments={comments} />
+                            <div className="comment-input">
+                                <FormControl
+                                    type="text"
+                                    placeholder="Write a comment..."
+                                    value={commentText}
+                                    onChange={(e) => setCommentText(e.target.value)}
+                                />
+                                <Button variant="primary" onClick={submitComment}>
+                                    Submit
+                                </Button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
             <br/>
         </>
     );
 }
+
 
 export default PostCardComponent;

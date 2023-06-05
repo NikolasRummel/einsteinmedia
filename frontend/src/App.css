@@ -311,3 +311,102 @@ html, body {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+/*COMMENTS*/
+/* Styles for CommentsComponent */
+.comments {
+    margin-top: 20px;
+}
+
+/* Styles for CommentComponent */
+
+.comment-user {
+    display: flex;
+    align-items: center;
+}
+
+.comment-profile-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-username {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.delete-comment {
+    color: red;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.comment-text {
+    margin-left: 40px;
+    flex-grow: 1;
+}
+
+.comment-box {
+    background-color: white;
+    border: 1px solid #cccccc;
+    padding: 25px;
+}
+
+.comment-box:hover {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
+}
+
+.comment-box .comment-user:hover,
+.comment-box .comment-text:hover,
+.comment-box .comment-info:hover {
+    border: none;
+    background-color: transparent;
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.comment-input {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.comment-input input {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.comment-input button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.comment-input button:hover {
+    background-color: #0056b3;
+}
+
+.comment-button {
+    display: flex;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
+.comment-icon {
+    margin-right: 6px;
+}
+
