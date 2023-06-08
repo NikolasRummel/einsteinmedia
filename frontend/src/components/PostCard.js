@@ -192,7 +192,7 @@ function PostCardComponent({
                 </div>
                 <div className="card-body">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <h3 className="card-title"><b>{headline}</b></h3>
+                        <h3 className="card-title text-black"><b>{headline}</b></h3>
                         <div className="text-muted h7 mb-2">
                             <span><FaClock style={{ marginRight: "3px", marginBottom: "3px" }} /></span>
                             {timestamp}
