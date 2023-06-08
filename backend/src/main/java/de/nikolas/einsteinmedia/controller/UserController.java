@@ -75,6 +75,7 @@ public class UserController {
 
     @HttpMapping(path = "/user/all", method = HttpMethod.GET)
     public ArrayList<User> getAllUsers(HttpRequest request, HttpResponse response) {
+        System.out.println("getAllUsers");
         return repository.getUsers();
     }
 

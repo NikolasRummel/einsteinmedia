@@ -1,10 +1,19 @@
 import * as authApi from "./authApi";
-import {getAuthKey} from "./authApi";
-import {HttpStatusCode} from "axios";
 
 export function getUser() {
     return JSON.parse(sessionStorage.getItem("user"));
 }
+
+export async function fetchUsers() {
+    try {
+        const response = await fetch(`http://localhost:8081/user/all`);
+        return await response.json();
+    } catch (error) {
+        console.log('Error by fetching all users', error);
+        return -1;
+    }
+}
+
 
 export async function fetchUser() {
     if (!authApi.isLoggedIn()) return null;
@@ -87,7 +96,7 @@ export async function fetchFollowersCount(id) {
         return value;
     } catch (error) {
         console.log('Fehler beim Abrufen der Followee-Anzahl:', error);
-        return -1; // oder einen anderen Fehlerwert, der angemessen ist
+        return -1;
     }
 }
 
@@ -99,7 +108,7 @@ export async function fetchFolloweesCount(id) {
         return value;
     } catch (error) {
         console.log('Fehler beim Abrufen der Followee-Anzahl:', error);
-        return -1; // oder einen anderen Fehlerwert, der angemessen ist
+        return -1;
     }
 }
 

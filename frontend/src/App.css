@@ -226,6 +226,7 @@ html, body {
     top: 2px;
     left: 5px;
 }
+
 .sidebar-button {
     height: 50px;
     width: 95%;
@@ -234,6 +235,7 @@ html, body {
     margin-bottom: 20px;
     margin-left: 2.5%;
 }
+
 .newpost-container {
     position: fixed;
     top: 50%;
@@ -259,7 +261,7 @@ html, body {
     border-radius: 10px;
     backdrop-filter: blur(50px);
     width: 50%;
-    height:auto
+    height: auto
 }
 
 .sticky-sidebar {
@@ -373,6 +375,7 @@ html, body {
     justify-content: space-between;
     margin-bottom: 10px;
 }
+
 .comment-input {
     display: flex;
     align-items: center;
@@ -411,3 +414,20 @@ html, body {
     margin-right: 6px;
 }
 
+/* Users */
+.user-card {
+    transition-property: transform;
+    transition-duration: 0.3s;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+}
+
+
+.user-card-image {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    overflow: hidden;
+}

@@ -11,6 +11,7 @@ import FooterComponent from "./components/Footer";
 import Chat from "./sites/Chat";
 import VisitProfile from "./sites/VisitProfile";
 import Impress from "./sites/Impress";
+import Users from "./sites/Users";
 
 
 function AppRoutes() {
@@ -22,6 +23,7 @@ function AppRoutes() {
             <Route path="/profile" element={<Profile/>}/>
             <Route path="/profile/visit" element={<VisitProfile/>}/>
             <Route path="/chat" element={<Chat/>}/>
+            <Route path="/users" element={<Users/>}/>
             <Route path="/impress" element={<Impress/>}/>
         </Routes>
     );
