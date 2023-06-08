@@ -14,6 +14,8 @@ import de.nikolas.einsteinmedia.models.requests.RegisterRequestModel;
 import de.nikolas.einsteinmedia.models.User;
 import de.nikolas.einsteinmedia.repository.UserRepository;
 
+import java.util.ArrayList;
+
 @HttpController
 public class UserController {
 
@@ -69,6 +71,11 @@ public class UserController {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return null;
         }
+    }
+
+    @HttpMapping(path = "/user/all", method = HttpMethod.GET)
+    public ArrayList<User> getAllUsers(HttpRequest request, HttpResponse response) {
+        return repository.getUsers();
     }
 
     @HttpMapping(path = "/user/", method = HttpMethod.GET)

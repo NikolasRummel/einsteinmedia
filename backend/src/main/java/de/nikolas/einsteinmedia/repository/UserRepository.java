@@ -4,6 +4,8 @@ import de.nikolas.einsteinmedia.models.User;
 import de.nikolas.einsteinmedia.commons.httpserver.log.Logger;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 
@@ -57,6 +59,30 @@ public class UserRepository {
         this.logger.info(
                 "Successfully registered a new user (" + user.getUserName() + "/" + user.getFirstName()
                         + " " + user.getLastName() + ")");
+    }
+
+    public ArrayList<User> getUsers() {
+        ArrayList<User> users = new ArrayList<>();
+        ResultSet resultSet = this.databaseConnection.asyncQuery("SELECT * FROM users");
+
+        try {
+            while (resultSet.next()) {
+                User user = new User(
+                        resultSet.getInt("uniqueId"),
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName"),
+                        resultSet.getString("userName"),
+                        resultSet.getString("email"),
+                        resultSet.getString("password"),
+                        resultSet.getString("profileImage"),
+                        resultSet.getString("bannerImage")
+                );
+                users.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
     public boolean userExists(String email) {
