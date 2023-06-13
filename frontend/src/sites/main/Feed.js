@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import PostCard from "../../components/PostCard";
-import {Card, Col, Form, Row} from "react-bootstrap";
+import {Button, Card, Col, Form, Row} from "react-bootstrap";
+import {FaArrowUp} from "react-icons/fa";
+
 
 const Feed = () => {
     const [posts, setPosts] = useState([]);
@@ -27,6 +29,13 @@ const Feed = () => {
         post.author.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         post.author.lastName.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        })
+    }
 
     return (
         <>
@@ -74,6 +83,13 @@ const Feed = () => {
                             />
                         </div>
                     ))}
+
+                    <div onClick={scrollToTop} className="text-center m-4">
+                        <Button className="scroll-to-top">
+                            <FaArrowUp className="icon"/>
+                            <span className="text"> Scroll to Top</span>
+                        </Button>
+                    </div>
                 </div>
             )}
         </>

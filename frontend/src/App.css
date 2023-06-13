@@ -424,10 +424,19 @@ html, body {
     transform: translateY(-5px);
 }
 
-
 .user-card-image {
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
     overflow: hidden;
+}
+
+
+/* FEED */
+.scroll-to-top {
+    color: #7aa5d7;
+}
+
+.scroll-to-top:hover {
+    color: #3571bd;
 }

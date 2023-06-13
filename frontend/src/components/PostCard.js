@@ -7,7 +7,6 @@ import {Button, Card, FormControl, Image, OverlayTrigger, Tooltip} from "react-b
 import React, {useEffect, useState} from 'react';
 import {Navigate, useHistory, useNavigate} from "react-router-dom";
 import CommentsComponent from "./Comment";
-import comment from "./Comment";
 
 function PostCardComponent({
                                profileImage,
