@@ -22,9 +22,7 @@ function Comment({ profileImage, userName, text, timestamp }) {
 }
 
 function CommentsComponent({ comments }) {
-    const handleDeleteComment = (commentId) => {
-        // Hier kannst du die Logik zum Löschen eines Kommentars implementieren
-    };
+    const handleDeleteComment = (commentId) => {};
 
     return (
         <div className="comments">

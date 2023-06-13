@@ -5,6 +5,8 @@ import de.nikolas.einsteinmedia.commons.httpserver.http.server.HttpServer;
 import de.nikolas.einsteinmedia.commons.httpserver.utils.Providers;
 import de.nikolas.einsteinmedia.livechat.WebSocketServer;
 
+import java.io.IOException;
+
 /**
  * @author Nikolas Rummel
  * @since 08.05.23
@@ -28,6 +30,15 @@ public class EinsteinMediaBackendService {
             server.start();
         });
 
+        Thread reverseProxy = new Thread(() -> {
+            try {
+                ReverseProxy proxy = new ReverseProxy();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        reverseProxy.start();
         webSocketThread.start();
         httpServerThread.start();
     }
