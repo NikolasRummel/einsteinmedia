@@ -7,9 +7,9 @@ EinsteinMedia is a social media platform created as a computer science class pro
 - User registration and login: Users can create an account and log in to the platform.
 - Profile customization: Users can customize their profile by adding a profile picture, banner image, and personal information.
 - Creating and browsing posts: Users can create new posts and browse through posts in their feed.
-- Posting categories: The platform supports various posting categories such as General, Science, and Other.
 - Group chat: Users can engage in live group chat discussions with other users.
 - Interacting with posts: Users can comment on posts.
+- Searching: Filter posts and search for users to visit their profile
 - Private messaging: Users can send private messages to each other. (soon)
 
 ## Technologies Used

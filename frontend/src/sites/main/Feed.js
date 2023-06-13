@@ -84,12 +84,14 @@ const Feed = () => {
                         </div>
                     ))}
 
-                    <div onClick={scrollToTop} className="text-center m-4">
-                        <Button className="scroll-to-top">
-                            <FaArrowUp className="icon"/>
-                            <span className="text"> Scroll to Top</span>
-                        </Button>
-                    </div>
+                    {(filteredPosts.length >= 4) && (
+                        <div onClick={scrollToTop} className="text-center m-4">
+                            <Button className="scroll-to-top">
+                                <FaArrowUp className="icon"/>
+                                <span className="text"> Scroll to Top</span>
+                            </Button>
+                        </div>
+                    )}
                 </div>
             )}
         </>
