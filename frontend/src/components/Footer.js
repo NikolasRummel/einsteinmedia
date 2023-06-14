@@ -36,7 +36,7 @@ function FooterComponent() {
 
                         <ul className='list-unstyled'>
                             <li>
-                                <a href='#!' className='text-white'>
+                                <a href='/privacy' className='text-white'>
                                     Privacy
                                 </a>
                             </li>

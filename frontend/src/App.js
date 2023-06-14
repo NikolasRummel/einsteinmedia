@@ -12,7 +12,7 @@ import Chat from "./sites/Chat";
 import VisitProfile from "./sites/VisitProfile";
 import Impress from "./sites/Impress";
 import Users from "./sites/Users";
-
+import Privacy from "./sites/Privacy";
 
 function AppRoutes() {
     return (
@@ -25,6 +25,7 @@ function AppRoutes() {
             <Route path="/chat" element={<Chat/>}/>
             <Route path="/users" element={<Users/>}/>
             <Route path="/impress" element={<Impress/>}/>
+            <Route path="/privacy" element={<Privacy/>}/>
         </Routes>
     );
 }
@@ -34,7 +35,7 @@ AppRoutes.propTypes = {children: PropTypes.node};
 function App() {
     return (
         <>
-            <div >
+            <div>
                 <NavbarComponent></NavbarComponent>
                 <BrowserRouter>
                     <AppRoutes></AppRoutes>
