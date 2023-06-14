@@ -198,6 +198,7 @@ function Privacy() {
                     <p>If you have any questions, concerns, or complaints regarding this Policy, the information we hold
                         about you, or if you wish to exercise your rights, we encourage you to contact us using the
                         details below:</p>
+                    <a href="mailto:hello@nikolas-rummel.de">hello@nikolas-rummel.de</a>
                     <p>This document was last updated on June 14, 2023</p>
                 </div>
             </div>
